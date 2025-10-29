@@ -908,16 +908,18 @@
         }
 
         function printWithPagination() {
+            // --- NEW: Alert the user about the correct print settings ---
+            alert("للحصول على أفضل نتيجة، يرجى التأكد من أن اتجاه الصفحة في إعدادات الطباعة هو أفقي (Landscape). قد لا تظهر البيانات بشكل صحيح في الاتجاه العمودي.");
+
             const printButton = document.querySelector('.btn-success');
             printButton.textContent = 'جاري الطباعة...';
             printButton.disabled = true;
 
             const printArea = document.getElementById('print-area');
-            printArea.innerHTML = ''; // Clear previous print content
+            printArea.innerHTML = ''; 
 
             const originalHeader = document.querySelector('.header').cloneNode(true);
             const originalTitleSection = document.querySelector('.title-section').cloneNode(true);
-            // Update the date in the cloned title section to be non-interactive text
             const clonedPeriodContainer = originalTitleSection.querySelector('#period-input-container');
             const currentDisplayDate = document.getElementById('weekly-dates-display').textContent;
             clonedPeriodContainer.innerHTML = `<span>${currentDisplayDate}</span>`;
@@ -927,7 +929,7 @@
             const originalFooter = document.querySelector('.footer').cloneNode(true);
             
             const rowsPerPage = 25;
-            const numPages = Math.ceil(tableRows.length / rowsPerPage);
+            const numPages = Math.ceil(tableRows.length / rowsPerPage) || 1;
 
             for (let i = 0; i < numPages; i++) {
                 const page = document.createElement('div');
@@ -944,21 +946,18 @@
                 const rowsForPage = tableRows.slice(i * rowsPerPage, (i + 1) * rowsPerPage);
                 rowsForPage.forEach(originalRow => {
                     const newRow = newTbody.insertRow();
-                    Array.from(originalRow.cells).forEach((originalCell, cellIndex) => {
+                    Array.from(originalRow.cells).forEach((originalCell) => {
                         const newCell = newRow.insertCell();
-                        newCell.innerHTML = originalCell.innerHTML;
                         newCell.className = originalCell.className;
                         
-                        // Manually copy input values because cloneNode doesn't
                         const originalInput = originalCell.querySelector('input');
                         if (originalInput) {
-                            const newInput = newCell.querySelector('input');
-                            newInput.value = originalInput.value;
-                        }
-                        // Manually copy check cell state
-                        if(originalCell.classList.contains('check-cell')){
+                            newCell.innerHTML = `<input type="text" value="${originalInput.value}" readonly />`;
+                        } else if (originalCell.classList.contains('check-cell')) {
                             newCell.textContent = originalCell.textContent;
                             newCell.style.backgroundColor = originalCell.style.backgroundColor;
+                        } else {
+                             newCell.textContent = originalCell.textContent;
                         }
                     });
                 });
@@ -967,7 +966,6 @@
                 printArea.appendChild(page);
             }
 
-            // Add footer to the last page only
             if (printArea.lastChild) {
                 printArea.lastChild.appendChild(originalFooter);
             }
@@ -1018,4 +1016,4 @@
         }
     </script>
 </body>
-</html>
+</html>```
