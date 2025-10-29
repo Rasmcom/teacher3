@@ -533,7 +533,7 @@
         /* --- PRINT STYLES --- */
         @page {
             size: A4 landscape;
-            margin: 0.3cm; /* Hides browser header/footer on most browsers */
+            margin: 0.3cm;
         }
         
         @media print {
@@ -587,9 +587,15 @@
                 table-layout: fixed;
             }
             
-            /* --- NEW: Repeat table header on each page --- */
+            /* --- REVISED: This CSS rule ensures the table header repeats on each printed page --- */
             .main-table thead {
                 display: table-header-group !important;
+            }
+             .main-table tbody {
+                display: table-row-group !important;
+            }
+             .main-table tr {
+                page-break-inside: avoid !important;
             }
 
             .main-table th {
@@ -605,10 +611,11 @@
                 word-wrap: break-word;
             }
 
-            /* --- NEW: Adjust column widths on print --- */
+            /* --- REVISED: Adjusted column widths for better print layout --- */
             .main-table th:nth-child(1), .main-table td:nth-child(1) { width: 3% !important; }
-            .main-table th:nth-child(2), .main-table td:nth-child(2) { width: 15% !important; }
-            /* --- END NEW --- */
+            .main-table th:nth-child(2), .main-table td:nth-child(2) { width: 13% !important; }
+            .main-table th:last-child, .main-table td:last-child { width: 10% !important; }
+            /* --- END REVISED --- */
 
             .main-table input {
                 border: none !important;
@@ -1235,15 +1242,6 @@
         }
 
         function printWithPagination() {
-            const tableBody = document.getElementById('table-body');
-            const rows = tableBody.querySelectorAll('tr');
-            const rowsPerPage = 28;
-
-            for (let i = rowsPerPage - 1; i < rows.length - 1; i += rowsPerPage) {
-                if (rows[i]) {
-                    rows[i].classList.add('print-page-break');
-                }
-            }
             const printButton = document.querySelector('.btn-success');
             printButton.textContent = 'جاري الطباعة...';
             printButton.disabled = true;
@@ -1252,9 +1250,6 @@
         }
 
         window.addEventListener('afterprint', () => {
-            document.querySelectorAll('.print-page-break').forEach(el => {
-                el.classList.remove('print-page-break');
-            });
             const printButton = document.querySelector('.btn-success');
             printButton.innerHTML = '🖨️ طباعة مباشرة';
             printButton.disabled = false;
