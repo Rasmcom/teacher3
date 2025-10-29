@@ -93,7 +93,6 @@
             gap: 20px;
         }
 
-        /* NEW: Improved button design */
         .period-btn {
             padding: 15px 30px;
             border: 2px solid #2c5aa0;
@@ -117,7 +116,6 @@
             box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
         }
 
-        /* NEW: Smaller icon size */
         .period-btn img {
             width: 20px;
             height: 20px;
@@ -137,33 +135,13 @@
             font-family: 'Cairo', sans-serif;
         }
         
-        .month-input {
-            display: inline-block;
-            border: none;
-            border-bottom: 3px solid #2c5aa0;
-            background: transparent;
-            font-size: 28px;
-            font-weight: 700;
-            color: #2c5aa0;
-            text-align: center;
-            min-width: 150px;
-            padding: 8px;
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer;
-        }
-        
-        .month-input:focus {
-            outline: none;
-            border-bottom-color: #1e3a5f;
-        }
-
         .period-input-container {
             font-size: 26px; /* Reduced font size */
             font-weight: 700;
             color: #2c5aa0;
         }
 
-        .day-input, .week-input {
+        .week-input {
             border: none;
             background: transparent;
             font-size: 26px; /* Reduced font size */
@@ -261,7 +239,7 @@
         .main-table th,
         .main-table td {
             border: 1px solid #ddd;
-            padding: 5px; /* Reduced padding for smaller row height */
+            padding: 5px;
             text-align: center;
             vertical-align: middle;
         }
@@ -271,80 +249,38 @@
             font-size: 10px;
             font-family: 'Cairo', sans-serif;
         }
-        /* Adjusted font sizes for daily and weekly report headers */
-        .daily-sub-header th, .weekly-sub-header th, .daily-sub-sub-header th, .weekly-sub-sub-header th {
+        .weekly-sub-header th {
             font-size: 8px !important;
         }
         .main-table .col-number { width: 20px; }
 
 
-        /* Colors for main headers (text is white) */
         .col-number, .col-name, .col-commitment, .col-elearning, .col-growth, .col-signature,
-        .col-weekly-plan, .col-weekly-eval, .col-weekly-achieve, .col-weekly-growth,
-        .col-monthly-achieve, .col-monthly-develop, .col-monthly-quality {
+        .col-weekly-eval, .col-weekly-achieve {
             color: #fff;
         }
 
-        /* Colors for sub-headers (text is black) */
-        .col-commitment-sub, .col-commitment-subsub,
-        .col-elearning-sub, .col-elearning-subsub,
-        .col-growth-sub, .col-growth-subsub,
-        .col-weekly-plan-sub, .col-weekly-eval-sub, .col-weekly-achieve-sub, .col-weekly-growth-sub,
-        .col-monthly-achieve-sub, .col-monthly-develop-sub, .col-monthly-quality-sub, .col-monthly-quality-subsub {
+        .col-commitment-sub, .col-elearning-sub, .col-growth-sub, 
+        .col-weekly-eval-sub, .col-weekly-achieve-sub {
             color: #000;
         }
 
-        /* Specific background colors */
         .col-number { background: #6c757d; }
         .col-name { background: #495057; }
         .col-commitment { background: #28a745; }
         .col-commitment-sub { background: #66d966; }
-        .col-commitment-subsub { background: #99eb99; }
         .col-elearning { background: #007bff; }
         .col-elearning-sub { background: #66b3ff; }
-        .col-elearning-subsub { background: #99ccff; }
         .col-growth { background: #ffc107; }
         .col-growth-sub { background: #ffdb66; }
-        .col-growth-subsub { background: #ffeeaa; }
-        .col-weekly-plan { background: #007bff; }
-        .col-weekly-plan-sub { background: #66b3ff; }
         .col-weekly-eval { background: #28a745; }
         .col-weekly-eval-sub { background: #66d966; }
         .col-weekly-achieve { background: #ffc107; }
         .col-weekly-achieve-sub { background: #ffdb66; }
-        .col-weekly-growth { background: #dc3545; }
-        .col-weekly-growth-sub { background: #ff6b7a; }
-        .col-monthly-achieve { background: #28a745; }
-        .col-monthly-achieve-sub { background: #66d966; }
-        .col-monthly-develop { background: #007bff; }
-        .col-monthly-develop-sub { background: #66b3ff; }
-        .col-monthly-quality { background: #ffc107; }
-        .col-monthly-quality-sub { background: #ffdb66; }
-        .col-monthly-quality-subsub { background: #ffeb99; }
         .col-signature { background: #6f42c1; }
         
         .main-table td {
             background: white;
-        }
-        
-        .main-table input[type="number"] {
-            width: 95px;
-            height: 45px;
-            padding: 8px;
-            border: 1px solid #b0b0b0;
-            border-radius: 6px;
-            text-align: center;
-            font-family: 'Cairo', sans-serif;
-            font-size: 18px;
-            font-weight: bold;
-            color: #16445b;
-            -moz-appearance: textfield;
-        }
-
-        .main-table input[type="number"]::-webkit-outer-spin-button,
-        .main-table input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
         }
         
         .main-table input[type="text"] {
@@ -354,13 +290,6 @@
             border-radius: 5px;
             font-family: 'Cairo', sans-serif;
             font-size: 14px;
-        }
-
-        .main-table .small-input {
-            width: 40px; /* Further reduced width */
-            height: 25px; /* Further reduced height */
-            font-size: 10px; /* Reduced font size */
-            padding: 2px;
         }
         
         .check-cell {
@@ -375,7 +304,6 @@
             background: #f8f9fa;
         }
         
-        /* --- START: UPDATED FOOTER STYLES --- */
         .footer {
             padding: 30px;
             background: #f8f9fa;
@@ -393,7 +321,6 @@
             gap: 20px;
             width: 100%;
         }
-        /* --- END: UPDATED FOOTER STYLES --- */
         
         .signature-box {
             display: flex;
@@ -401,10 +328,6 @@
             gap: 15px;
             min-width: 300px;
             align-items: center;
-        }
-        
-        .signature-input label {
-            display: none;
         }
         
         .signature-input {
@@ -527,7 +450,6 @@
             .main-table { font-size: 11px; }
             .main-table th, .main-table td { padding: 8px; }
             .main-title { font-size: 24px; }
-            .month-input { font-size: 20px; }
         }
 
         /* --- PRINT STYLES --- */
@@ -537,123 +459,72 @@
         }
         
         @media print {
-            .no-print { display: none !important; }
+            .no-print, #pledge-modal { display: none !important; }
+            #print-area { display: block !important; }
+            #record-page { display: none !important; }
+
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             
-            html, body {
-                width: 100% !important;
-                margin: 0 !important;
+            body {
                 padding: 0 !important;
+                margin: 0 !important;
                 background: white !important;
-                font-size: 6.5px !important;
             }
             
-            .container {
-                box-shadow: none !important;
-                border-radius: 0 !important;
+            .print-page {
+                page-break-after: always;
+                padding: 0.2cm;
             }
-            
-            .header {
+            .print-page:last-child {
+                page-break-after: auto;
+            }
+
+            .header, .title-section, .footer {
                 padding: 5px !important;
-                display: flex !important;
                 flex-direction: row !important;
-                justify-content: flex-start !important;
-                align-items: center !important;
             }
-
-            .title-section { padding: 5px !important; }
-            .logo { width: 45px !important; height: auto !important; }
+            .logo { width: 45px !important; }
             
-            .day-input, .week-input, .month-select { display: none !important; }
-            .month-display { display: inline-block !important; }
-            
-            .period-input-container {
-                font-size: 11px !important;
-                color: black !important;
-            }
-
-            .period-input-container input {
-                border-bottom: 1px solid #000 !important;
-                font-size: 11px !important;
-                color: #000 !important;
-                background: transparent !important;
-            }
+            .main-title { font-size: 12px !important; }
+            .period-input-container, .period-input-container span { font-size: 11px !important; color: black !important; }
             
             .main-table {
                 width: 100% !important;
                 border-collapse: collapse !important;
                 font-size: 6px !important;
-                margin: 0 !important;
                 table-layout: fixed;
             }
             
-            /* --- REVISED: This CSS rule ensures the table header repeats on each printed page --- */
-            .main-table thead {
-                display: table-header-group !important;
-            }
-             .main-table tbody {
-                display: table-row-group !important;
-            }
-             .main-table tr {
-                page-break-inside: avoid !important;
-            }
+            .main-table thead { display: table-header-group !important; }
+            .main-table th { font-size: 5px !important; }
 
-            .main-table th {
-                font-size: 5px !important;
-            }
-
-            .main-table th,
-            .main-table td {
+            .main-table th, .main-table td {
                 border: 1px solid #000 !important;
                 padding: 1px !important;
-                text-align: center !important;
-                vertical-align: middle !important;
                 word-wrap: break-word;
             }
 
-            /* --- REVISED: Adjusted column widths for better print layout --- */
             .main-table th:nth-child(1), .main-table td:nth-child(1) { width: 3% !important; }
             .main-table th:nth-child(2), .main-table td:nth-child(2) { width: 13% !important; }
             .main-table th:last-child, .main-table td:last-child { width: 10% !important; }
-            /* --- END REVISED --- */
 
             .main-table input {
-                border: none !important;
-                background: transparent !important;
-                width: 100% !important;
-                height: 100% !important;
-                text-align: center !important;
-                font-size: 6.5px !important;
-                padding: 0 !important;
-                color: #000 !important;
+                border: none !important; background: transparent !important;
+                width: 100% !important; height: 100% !important;
+                text-align: center !important; font-size: 6.5px !important;
+                padding: 0 !important; color: #000 !important;
             }
 
-            .check-cell { font-size: 8px !important; }
-
-            .footer {
-                padding: 5px 20px 0 20px !important;
-                background: #f8f9fa !important;
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                width: 100% !important;
-                flex-wrap: nowrap !important;
-                page-break-before: auto;
-            }
-
-            .signature-box { width: auto !important; }
-
+            .check-cell { font-size: 8px !important; padding: 1px !important; }
+            .footer { justify-content: space-between !important; width: 100% !important; }
             .signature-box input {
-                font-size: 9px !important;
-                padding: 4px !important;
-                border: none !important;
-                border-bottom: 1px solid #000 !important;
-                border-radius: 0 !important;
-                width: 200px !important;
+                font-size: 9px !important; padding: 4px !important;
+                border: none !important; border-bottom: 1px solid #000 !important;
+                border-radius: 0 !important; width: 200px !important;
                 background: transparent !important;
             }
         }
+        #print-area { display: none; }
     </style>
 </head>
 <body>
@@ -676,6 +547,8 @@
             </div>
         </div>
     </div>
+    
+    <div id="print-area"></div>
 
     <div class="container" id="record-page" style="display: none;">
         <div class="header">
@@ -718,7 +591,7 @@
         
         <div class="table-container">
             <table class="main-table" id="main-table">
-                </table>
+            </table>
         </div>
         
         <div class="footer">
@@ -750,260 +623,153 @@
 
         // Hijri date conversion utility
         const hijriMonthsExtended = [
-            { value: 'محرم', text: 'محرم' },
-            { value: 'صفر', text: 'صفر' },
-            { value: 'ربيع الأول', text: 'ربيع الأول' },
-            { value: 'ربيع الآخر', text: 'ربيع الآخر' },
-            { value: 'جمادى الأولى', text: 'جمادى الأولى' },
-            { value: 'جمادى الآخرة', text: 'جمادى الآخرة' },
-            { value: 'رجب', text: 'رجب' },
-            { value: 'شعبان', text: 'شعبان' },
-            { value: 'رمضان', text: 'رمضان' },
-            { value: 'شوال', text: 'شوال' },
-            { value: 'ذو القعدة', text: 'ذو القعدة' },
-            { value: 'ذو الحجة', text: 'ذو الحجة' }
+            { value: 'محرم', text: 'محرم' }, { value: 'صفر', text: 'صفر' },
+            { value: 'ربيع الأول', text: 'ربيع الأول' }, { value: 'ربيع الآخر', text: 'ربيع الآخر' },
+            { value: 'جمادى الأولى', text: 'جمادى الأولى' }, { value: 'جمادى الآخرة', text: 'جمادى الآخرة' },
+            { value: 'رجب', text: 'رجب' }, { value: 'شعبان', text: 'شعبان' },
+            { value: 'رمضان', text: 'رمضان' }, { value: 'شوال', text: 'شوال' },
+            { value: 'ذو القعدة', text: 'ذو القعدة' }, { value: 'ذو الحجة', text: 'ذو الحجة' }
         ];
 
         function toHijri(date) {
             if (!date) return { weekday: '', day: '', month: '', year: '' };
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long',
-                calendar: 'islamic-umalqura'
-            };
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', calendar: 'islamic-umalqura' };
             try {
                 const formatter = new Intl.DateTimeFormat('ar-SA-u-nu-latn', options);
                 const formattedDate = formatter.format(date);
                 const parts = formattedDate.split(' ');
                 const month = hijriMonthsExtended.find(m => m.text.includes(parts[2]));
-                return {
-                    weekday: parts[0],
-                    day: parts[1],
-                    month: month ? month.text : parts[2],
-                    year: parts[3]
-                };
-            } catch (e) {
-                console.error("Error formatting Hijri date:", e);
-                return { weekday: '', day: '', month: '', year: '' };
-            }
+                return { weekday: parts[0], day: parts[1], month: month ? month.text : parts[2], year: parts[3] };
+            } catch (e) { console.error("Error formatting Hijri date:", e); return { weekday: '', day: '', month: '', year: '' }; }
         }
         function getHijriDayAndMonth(date) {
             if (!date) return '';
-            const options = {
-                day: 'numeric',
-                month: 'long',
-                calendar: 'islamic-umalqura'
-            };
+            const options = { day: 'numeric', month: 'long', calendar: 'islamic-umalqura' };
             try {
-                const formatter = new Intl.DateTimeFormat('ar-SA-u-nu-latn', options);
-                const formattedDate = formatter.format(date);
-                return formattedDate;
-            } catch (e) {
-                console.error("Error formatting Hijri date:", e);
-                return '';
-            }
+                return new Intl.DateTimeFormat('ar-SA-u-nu-latn', options).format(date);
+            } catch (e) { console.error("Error formatting Hijri date:", e); return ''; }
         }
 
-
-        // Detailed evaluation criteria translated into HTML table structures
         const tableHeaders = {
             weekly: `
                 <thead>
                     <tr>
-                        <th rowspan="2" class="col-number">م</th>
-                        <th rowspan="2" class="col-name" id="name-column-header">اسم المعلمة</th>
-                        <th colspan="4" class="col-elearning">التعلم الالكتروني</th>
-                        <th colspan="8" class="col-commitment">معايير الالتزام الوظيفي</th>
-                        <th colspan="7" class="col-growth">التطوير المهني</th>
-                        <th colspan="3" class="col-weekly-achieve">متابعة التحصيل الدراسي</th>
-                        <th colspan="3" class="col-weekly-eval">تنوع اساليب التقويم</th>
-                        <th rowspan="2" class="col-signature" id="signature-column-header">توقيع المعلمة بالاطلاع</th>
+                        <th rowspan="2" class="col-number">م</th><th rowspan="2" class="col-name" id="name-column-header">اسم المعلمة</th>
+                        <th colspan="4" class="col-elearning">التعلم الالكتروني</th><th colspan="8" class="col-commitment">معايير الالتزام الوظيفي</th>
+                        <th colspan="7" class="col-growth">التطوير المهني</th><th colspan="3" class="col-weekly-achieve">متابعة التحصيل الدراسي</th>
+                        <th colspan="3" class="col-weekly-eval">تنوع اساليب التقويم</th><th rowspan="2" class="col-signature" id="signature-column-header">توقيع المعلمة بالاطلاع</th>
                     </tr>
                     <tr class="sub-header weekly-sub-header">
-                        <!-- التعلم الالكتروني -->
-                        <th class="col-elearning-sub">متوافق مع توزيع المنهج</th>
-                        <th class="col-elearning-sub">مستوفي العناصر</th>
-                        <th class="col-elearning-sub">اعداد خطة اسبوعية</th>
-                        <th class="col-elearning-sub">اعداد الدروس</th>
-                        <!-- معايير الالتزام الوظيفي -->
-                        <th class="col-commitment-sub">الانضباط في الحضور والانصراف</th>
-                        <th class="col-commitment-sub">حضور الطابور الصباحي</th>
-                        <th class="col-commitment-sub">تفعيل المناوبة</th>
-                        <th class="col-commitment-sub">المشاركة في الانشطة</th>
-                        <th class="col-commitment-sub">الالتزام بزمن الحصة</th>
-                        <th class="col-commitment-sub">تفعيل حصص الانتظار</th>
-                        <th class="col-commitment-sub">المحافظة على الانضباط المدرسي</th>
-                        <th class="col-commitment-sub">التعاون والعمل بروح الفريق</th>
-                        <!-- التطوير المهني -->
-                        <th class="col-growth-sub">مجتمع تعلم مهني</th>
-                        <th class="col-growth-sub">الدورات التدرريبية</th>
-                        <th class="col-growth-sub">ورش العمل</th>
-                        <th class="col-growth-sub">القراءة الموجهة</th>
-                        <th class="col-growth-sub">زيارات تبادلية</th>
-                        <th class="col-growth-sub">درس تطبيقي</th>
-                        <th class="col-growth-sub">لقاء تربوي</th>
-                        <!-- متابعة التحصيل الدراسي -->
-                        <th class="col-weekly-achieve-sub">اختبارات تشخيصية</th>
-                        <th class="col-weekly-achieve-sub">تحليل نتائج</th>
-                        <th class="col-weekly-achieve-sub">خطط علاجية واثرائية</th>
-                        <!-- تنوع اساليب التقويم -->
-                        <th class="col-weekly-eval-sub">اختبارات قصيرة</th>
-                        <th class="col-weekly-eval-sub">ملف انجاز</th>
-                        <th class="col-weekly-eval-sub">مشاريع</th>
+                        <th class="col-elearning-sub">متوافق مع توزيع المنهج</th><th class="col-elearning-sub">مستوفي العناصر</th>
+                        <th class="col-elearning-sub">اعداد خطة اسبوعية</th><th class="col-elearning-sub">اعداد الدروس</th>
+                        <th class="col-commitment-sub">الانضباط في الحضور والانصراف</th><th class="col-commitment-sub">حضور الطابور الصباحي</th>
+                        <th class="col-commitment-sub">تفعيل المناوبة</th><th class="col-commitment-sub">المشاركة في الانشطة</th>
+                        <th class="col-commitment-sub">الالتزام بزمن الحصة</th><th class="col-commitment-sub">تفعيل حصص الانتظار</th>
+                        <th class="col-commitment-sub">المحافظة على الانضباط المدرسي</th><th class="col-commitment-sub">التعاون والعمل بروح الفريق</th>
+                        <th class="col-growth-sub">مجتمع تعلم مهني</th><th class="col-growth-sub">الدورات التدرريبية</th><th class="col-growth-sub">ورش العمل</th>
+                        <th class="col-growth-sub">القراءة الموجهة</th><th class="col-growth-sub">زيارات تبادلية</th><th class="col-growth-sub">درس تطبيقي</th>
+                        <th class="col-growth-sub">لقاء تربوي</th><th class="col-weekly-achieve-sub">اختبارات تشخيصية</th>
+                        <th class="col-weekly-achieve-sub">تحليل نتائج</th><th class="col-weekly-achieve-sub">خطط علاجية واثرائية</th>
+                        <th class="col-weekly-eval-sub">اختبارات قصيرة</th><th class="col-weekly-eval-sub">ملف انجاز</th><th class="col-weekly-eval-sub">مشاريع</th>
                     </tr>
-                </thead>
-                <tbody id="table-body">
-                </tbody>
-            `
+                </thead>`
         };
         
         function generateTable() {
             const table = document.getElementById('main-table');
             const names = getSavedNames();
-            table.innerHTML = tableHeaders[currentPeriod];
-            
+            table.innerHTML = tableHeaders[currentPeriod] + '<tbody id="table-body"></tbody>';
             const tableBody = document.getElementById('table-body');
-            tableBody.innerHTML = '';
-            
             if (names.length > 0) {
                 names.forEach((name, index) => addTableRow(name, index + 1));
-            } else {
-                addTableRow('', 1);
-                addTableRow('', 2);
-            }
+            } else { addTableRow('', 1); addTableRow('', 2); }
         }
         
         function getNamesFromTable() {
-            const tbody = document.getElementById('table-body');
-            if (!tbody) {
-                return [];
-            }
             const names = [];
-            const rows = tbody.querySelectorAll('tr');
-            rows.forEach(row => {
+            document.querySelectorAll('#table-body tr').forEach(row => {
                 const nameInput = row.querySelector('td:nth-child(2) input');
-                if (nameInput) {
-                    names.push(nameInput.value);
-                }
+                if (nameInput) names.push(nameInput.value);
             });
             return names;
         }
         
-        function saveNames(names) {
-            localStorage.setItem('teacherNames', JSON.stringify(names));
-        }
-
-        function updateAndSaveNames() {
-            const names = getNamesFromTable();
-            saveNames(names);
-        }
-
-        function getSavedNames() {
-            const names = localStorage.getItem('teacherNames');
-            return names ? JSON.parse(names) : [];
-        }
+        function saveNames(names) { localStorage.setItem('teacherNames', JSON.stringify(names)); }
+        function updateAndSaveNames() { saveNames(getNamesFromTable()); }
+        function getSavedNames() { const n = localStorage.getItem('teacherNames'); return n ? JSON.parse(n) : []; }
 
         function getPeriodKey() {
-            let periodKey = '';
             const startInput = document.getElementById('week-start-input');
             const endInput = document.getElementById('week-end-input');
             if (startInput && endInput && startInput.value && endInput.value) {
-                periodKey = 'weekly-' + startInput.value + '-' + endInput.value;
+                return `weekly-${startInput.value}-${endInput.value}`;
             }
-            return periodKey;
+            return '';
         }
         
         function saveData(type = 'period') {
-            const dataToSave = {};
-
             if (type === 'global') {
-                dataToSave.dept = document.getElementById('education-dept').value;
-                dataToSave.region = document.getElementById('education-region').value;
-                dataToSave.school = document.getElementById('school-name').value;
-                localStorage.setItem('globalData', JSON.stringify(dataToSave));
+                const globalData = {
+                    dept: document.getElementById('education-dept').value,
+                    region: document.getElementById('education-region').value,
+                    school: document.getElementById('school-name').value
+                };
+                localStorage.setItem('globalData', JSON.stringify(globalData));
                 return;
             }
-            
             const periodKey = getPeriodKey();
-            if (!periodKey) {
-                console.error("No period key to save data.");
-                return;
-            }
-
+            if (!periodKey) { return; }
             const tableData = [];
-            const tableBody = document.getElementById('table-body');
-            const rows = tableBody.querySelectorAll('tr');
-            
-            rows.forEach(row => {
+            document.querySelectorAll('#table-body tr').forEach(row => {
                 const rowData = [];
-                const cells = row.querySelectorAll('td');
-                cells.forEach(cell => {
+                row.querySelectorAll('td').forEach(cell => {
                     const input = cell.querySelector('input');
-                    const check = cell.textContent.trim();
                     if (input) {
-                        rowData.push({ type: 'input', value: input.value, isSignature: input.classList.contains('signature-input') });
+                        rowData.push({ type: 'input', value: input.value });
                     } else if (cell.classList.contains('check-cell')) {
-                        rowData.push({ type: 'check', value: check });
-                    } else {
-                        rowData.push({ type: 'text', value: cell.textContent.trim() });
+                        rowData.push({ type: 'check', value: cell.textContent.trim() });
                     }
                 });
                 tableData.push(rowData);
             });
-
-            dataToSave.tableData = tableData;
-            dataToSave.signatures = {
-                supervisor: document.getElementById('supervisor-signature').value,
-                schoolPrincipal: document.getElementById('school-principal-signature').value
+            const dataToSave = {
+                tableData: tableData,
+                signatures: {
+                    supervisor: document.getElementById('supervisor-signature').value,
+                    schoolPrincipal: document.getElementById('school-principal-signature').value
+                }
             };
-            
             localStorage.setItem(periodKey, JSON.stringify(dataToSave));
         }
 
         function loadData() {
             const periodKey = getPeriodKey();
             generateTable();
-
-            if (periodKey) {
-                const savedData = localStorage.getItem(periodKey);
-                if (savedData) {
-                    const data = JSON.parse(savedData);
-                    document.getElementById('supervisor-signature').value = data.signatures?.supervisor || '';
-                    document.getElementById('school-principal-signature').value = data.signatures?.schoolPrincipal || '';
-                    
-                    const tableBody = document.getElementById('table-body');
-                    if (data.tableData) {
-                        const rows = tableBody.querySelectorAll('tr');
-                        data.tableData.forEach((rowData, rowIndex) => {
-                            const row = rows[rowIndex];
-                            if (row) {
-                                const cells = row.querySelectorAll('td');
-                                rowData.forEach((cellData, cellIndex) => {
-                                    if (cells[cellIndex]) {
-                                        if (cellData.type === 'check') {
-                                            cells[cellIndex].textContent = cellData.value;
-                                            if (cellData.value === '✅') {
-                                                cells[cellIndex].style.backgroundColor = '#d4edda';
-                                            } else if (cellData.value === '❌') {
-                                                cells[cellIndex].style.backgroundColor = '#f8d7da';
-                                            }
-                                        } else if (cellData.type === 'input') {
-                                            const input = cells[cellIndex].querySelector('input');
-                                            if (input) {
-                                                input.value = cellData.value;
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                } else {
-                    document.getElementById('supervisor-signature').value = '';
-                    document.getElementById('school-principal-signature').value = '';
+            if (!periodKey) return;
+            const savedData = localStorage.getItem(periodKey);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('supervisor-signature').value = data.signatures?.supervisor || '';
+                document.getElementById('school-principal-signature').value = data.signatures?.schoolPrincipal || '';
+                const rows = document.querySelectorAll('#table-body tr');
+                if (data.tableData) {
+                    data.tableData.forEach((rowData, rowIndex) => {
+                        const row = rows[rowIndex];
+                        if (row) {
+                            rowData.forEach((cellData, cellIndex) => {
+                                const cell = row.cells[cellIndex + 1]; // +1 to skip the number cell
+                                if (!cell) return;
+                                if (cellData.type === 'check') {
+                                    cell.textContent = cellData.value;
+                                    if (cellData.value === '✅') cell.style.backgroundColor = '#d4edda';
+                                    else if (cellData.value === '❌') cell.style.backgroundColor = '#f8d7da';
+                                } else if (cellData.type === 'input') {
+                                    const input = cell.querySelector('input');
+                                    if (input) input.value = cellData.value;
+                                }
+                            });
+                        }
+                    });
                 }
             }
         }
@@ -1011,9 +777,7 @@
         function clearData() {
             if (confirm('هل أنت متأكد من مسح بيانات الفترة الحالية فقط؟')) {
                 const periodKey = getPeriodKey();
-                if (periodKey) {
-                    localStorage.removeItem(periodKey);
-                }
+                if (periodKey) localStorage.removeItem(periodKey);
                 loadData();
             }
         }
@@ -1043,54 +807,39 @@
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.download = `سجل_متابعة_المعلمات_نسخة_احتياطية_${new Date().toISOString().slice(0, 10)}.txt`;
-            document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
+            a.remove();
             alert('تم حفظ النسخة الاحتياطية بنجاح.');
         }
 
         function restoreData() {
             const fileInput = document.getElementById('restoreFile');
-            fileInput.click();
             fileInput.onchange = (e) => {
                 const file = e.target.files[0];
-                if (!file) {
-                    return;
-                }
+                if (!file) return;
                 if (confirm('سيتم استعادة البيانات من الملف، هذا سيؤدي إلى حذف جميع البيانات الحالية. هل أنت متأكد؟')) {
                     const reader = new FileReader();
                     reader.onload = function(event) {
                         try {
                             const restoredData = JSON.parse(event.target.result);
                             localStorage.clear();
-                            for (const key in restoredData) {
-                                localStorage.setItem(key, restoredData[key]);
-                            }
+                            for (const key in restoredData) { localStorage.setItem(key, restoredData[key]); }
                             alert('تم استعادة البيانات بنجاح.');
                             location.reload();
-                        } catch (error) {
-                            alert('فشل في استعادة البيانات. يرجى التأكد من أن الملف صحيح.');
-                            console.error('Error restoring data:', error);
-                        }
+                        } catch (error) { alert('فشل في استعادة البيانات. يرجى التأكد من أن الملف صحيح.'); }
                     };
                     reader.readAsText(file);
                 }
             };
+            fileInput.click();
         }
         
         function updateInterfaceAndLoadData() {
             const periodInputContainer = document.getElementById('period-input-container');
-            
-            let inputHtml = `
+            periodInputContainer.innerHTML = `
                 <span id="weekly-dates-display"></span>
                 <span class="period-input-label no-print">الأسبوع من</span> <input type="date" class="week-input no-print" id="week-start-input">
-                <span class="period-input-label no-print">إلى</span> <input type="date" class="week-input no-print" id="week-end-input">
-            `;
-
-            if (periodInputContainer) {
-                periodInputContainer.innerHTML = inputHtml;
-            }
-
+                <span class="period-input-label no-print">إلى</span> <input type="date" class="week-input no-print" id="week-end-input">`;
             const weekStartInput = document.getElementById('week-start-input');
             const weekEndInput = document.getElementById('week-end-input');
             const today = new Date();
@@ -1099,144 +848,61 @@
             endOfWeek.setDate(startOfWeek.getDate() + 6);
             weekStartInput.value = startOfWeek.toISOString().slice(0, 10);
             weekEndInput.value = endOfWeek.toISOString().slice(0, 10);
-            weekStartInput.addEventListener('change', () => updateWeeklyDates());
-            weekEndInput.addEventListener('change', () => updateWeeklyDates());
-            
-            updateDisplayDates();
-            loadData();
-            saveData('global');
-        }
-
-        function updateDisplayDates() {
+            weekStartInput.addEventListener('change', updateWeeklyDates);
+            weekEndInput.addEventListener('change', updateWeeklyDates);
             updateWeeklyDates();
+            saveData('global');
         }
 
         function updateWeeklyDates() {
             const startInput = document.getElementById('week-start-input');
             const endInput = document.getElementById('week-end-input');
             const displaySpan = document.getElementById('weekly-dates-display');
-            if (startInput && endInput && displaySpan && startInput.value && endInput.value) {
-                const startDate = new Date(startInput.value);
-                const endDate = new Date(endInput.value);
-                const hijriStart = getHijriDayAndMonth(startDate);
-                const hijriEnd = getHijriDayAndMonth(endDate);
-                displaySpan.textContent = `الأسبوع من ${hijriStart} إلى ${hijriEnd}`;
+            if (startInput.value && endInput.value) {
+                displaySpan.textContent = `الأسبوع من ${getHijriDayAndMonth(new Date(startInput.value))} إلى ${getHijriDayAndMonth(new Date(endInput.value))}`;
                 loadData();
-            } else {
-                displaySpan.textContent = '';
             }
         }
 
         function cleanAndExtractName(text) {
-            let parts = text.split(/\t+|\s{2,}/).map(part => part.trim()).filter(part => part.length > 0);
-            
-            if (parts.length >= 2) {
-                let fullName = parts[1]; 
-                let nameWords = fullName.split(/\s+/).filter(word => {
-                    word = word.trim();
-                    return word.length > 0 && /^[\u0600-\u06FF]+$/.test(word);
-                });
-                
-                if (nameWords.length >= 2) {
-                    return nameWords[0] + " " + nameWords[nameWords.length - 1];
-                } else if (nameWords.length === 1) {
-                    return nameWords[0];
-                }
-            }
-            
             let cleaned = text.replace(/[0-9\-\:\.\،\,\(\)\[\]\/\\]/g, ' ');
-            
-            const unwantedWords = [
-                'التخصص', 'رقم', 'الهوية', 'السجل', 'المادة', 'المؤهل', 'القسم', 'المرحلة',
-                'المعلم', 'المعلمة', 'الأستاذ', 'مشرف', 'معلم', 'معلمة', 'أستاذ', 'دكتور',
-                'بكالوريوس', 'ماجستير', 'دكتوراه', 'رياضيات', 'عربية', 'إنجليزية', 'علوم',
-                'تاريخ', 'جغرافيا', 'فيزياء', 'كيمياء', 'أحياء', 'حاسوب', 'تربية', 'إسلامية',
-                'فنية', 'بدنية', 'اجتماعيات', 'لغة', 'الرياضيات', 'العلوم', 'التاريخ',
-                'الجغرافيا', 'الفيزياء', 'الكيمياء', 'الأحياء', 'الحاسوب', 'التربية',
-                'دائم', 'مؤقت', 'بديل', 'صفوف', 'أولية', 'دين'
-            ];
-            
-            unwantedWords.forEach(word => {
-                const regex = new RegExp(word, 'gi');
-                cleaned = cleaned.replace(regex, ' ');
-            });
-            
-            let words = cleaned.split(/\s+/).filter(word => {
-                word = word.trim();
-                if (word.length === 0) return false;
-                return /^[\u0600-\u06FF]+$/.test(word) && word.length >= 2;
-            });
-            
-            if (words.length >= 2) {
-                return words[0] + " " + words[words.length - 1];
-            } else if (words.length === 1) {
-                return words[0];
-            }
-            
+            const unwantedWords = ['التخصص', 'رقم', 'الهوية', 'السجل', 'المادة', 'المؤهل', 'القسم', 'المرحلة','المعلمة', 'الأستاذ', 'مشرف', 'معلم', 'معلمة', 'أستاذ', 'بكالوريوس', 'ماجستير', 'رياضيات', 'عربية', 'إنجليزية', 'علوم','تاريخ', 'جغرافيا', 'فيزياء', 'كيمياء', 'أحياء', 'حاسوب', 'تربية', 'إسلامية','فنية', 'بدنية', 'اجتماعيات', 'لغة', 'الرياضيات', 'العلوم', 'دائم', 'مؤقت', 'بديل', 'صفوف', 'أولية', 'دين'];
+            unwantedWords.forEach(word => { cleaned = cleaned.replace(new RegExp(word, 'gi'), ' '); });
+            let words = cleaned.split(/\s+/).filter(word => word.trim().length >= 2 && /^[\u0600-\u06FF]+$/.test(word.trim()));
+            if (words.length >= 2) return `${words[0]} ${words[words.length - 1]}`;
+            else if (words.length === 1) return words[0];
             return '';
         }
 
         function extractNames() {
             const textarea = document.getElementById('names-textarea');
             const lines = textarea.value.split('\n').filter(line => line.trim() !== '');
-            
             if (lines.length === 0) return;
-            
-            const extractedNames = [];
-            lines.forEach(line => {
-                const extractedName = cleanAndExtractName(line);
-                if (extractedName) {
-                    extractedNames.push(extractedName);
-                }
-            });
-            
-            if (extractedNames.length === 0) return;
-            
-            saveNames(extractedNames);
-            textarea.value = '';
-            
-            generateTable();
-            loadData();
+            const extractedNames = lines.map(cleanAndExtractName).filter(Boolean);
+            if (extractedNames.length > 0) {
+                saveNames(extractedNames);
+                textarea.value = '';
+                generateTable();
+                loadData();
+            }
         }
 
         const weeklyRowStructure = Array(25).fill('check');
 
         function addTableRow(name, number) {
-            const tbody = document.getElementById('table-body');
-            const row = document.createElement('tr');
-            
-            let cellsHtml = `<td>${number}</td><td><input type="text" value="${name}" class="name-input" oninput="updateAndSaveNames()"></td>`;
-            
-            const structure = weeklyRowStructure;
-
-            structure.forEach(type => {
-                if (type === 'check') {
-                    cellsHtml += `<td class="check-cell" onclick="toggleCheck(this)"></td>`;
-                } else if (type === 'number') {
-                    cellsHtml += `<td><input type="number" class="small-input" oninput="saveData()"></td>`;
-                } else if (type === 'text') {
-                    cellsHtml += `<td><input type="text" class="small-input" oninput="saveData()"></td>`;
-                }
-            });
-
-            cellsHtml += `<td><input type="text" class="signature-input" oninput="saveData()"></td>`;
-
-            row.innerHTML = cellsHtml;
-            tbody.appendChild(row);
+            const row = document.getElementById('table-body').insertRow();
+            row.innerHTML = `<td>${number}</td><td><input type="text" value="${name}" class="name-input" oninput="updateAndSaveNames()"></td>` +
+            weeklyRowStructure.map(() => `<td class="check-cell" onclick="toggleCheck(this)"></td>`).join('') +
+            `<td><input type="text" class="signature-input" oninput="saveData()"></td>`;
         }
 
         function toggleCheck(cell) {
-            const currentContent = cell.textContent.trim();
-            
-            if (currentContent === '') {
-                cell.textContent = '✅';
-                cell.style.backgroundColor = '#d4edda';
-            } else if (currentContent === '✅') {
-                cell.textContent = '❌';
-                cell.style.backgroundColor = '#f8d7da';
+            if (cell.textContent === '') {
+                cell.textContent = '✅'; cell.style.backgroundColor = '#d4edda';
+            } else if (cell.textContent === '✅') {
+                cell.textContent = '❌'; cell.style.backgroundColor = '#f8d7da';
             } else {
-                cell.textContent = '';
-                cell.style.backgroundColor = '';
+                cell.textContent = ''; cell.style.backgroundColor = '';
             }
             saveData();
         }
@@ -1246,10 +912,71 @@
             printButton.textContent = 'جاري الطباعة...';
             printButton.disabled = true;
 
+            const printArea = document.getElementById('print-area');
+            printArea.innerHTML = ''; // Clear previous print content
+
+            const originalHeader = document.querySelector('.header').cloneNode(true);
+            const originalTitleSection = document.querySelector('.title-section').cloneNode(true);
+            // Update the date in the cloned title section to be non-interactive text
+            const clonedPeriodContainer = originalTitleSection.querySelector('#period-input-container');
+            const currentDisplayDate = document.getElementById('weekly-dates-display').textContent;
+            clonedPeriodContainer.innerHTML = `<span>${currentDisplayDate}</span>`;
+
+            const tableHead = document.querySelector('.main-table thead').cloneNode(true);
+            const tableRows = Array.from(document.querySelectorAll('#table-body tr'));
+            const originalFooter = document.querySelector('.footer').cloneNode(true);
+            
+            const rowsPerPage = 25;
+            const numPages = Math.ceil(tableRows.length / rowsPerPage);
+
+            for (let i = 0; i < numPages; i++) {
+                const page = document.createElement('div');
+                page.className = 'print-page';
+
+                page.appendChild(originalHeader.cloneNode(true));
+                page.appendChild(originalTitleSection.cloneNode(true));
+
+                const newTable = document.createElement('table');
+                newTable.className = 'main-table';
+                newTable.appendChild(tableHead.cloneNode(true));
+                const newTbody = document.createElement('tbody');
+
+                const rowsForPage = tableRows.slice(i * rowsPerPage, (i + 1) * rowsPerPage);
+                rowsForPage.forEach(originalRow => {
+                    const newRow = newTbody.insertRow();
+                    Array.from(originalRow.cells).forEach((originalCell, cellIndex) => {
+                        const newCell = newRow.insertCell();
+                        newCell.innerHTML = originalCell.innerHTML;
+                        newCell.className = originalCell.className;
+                        
+                        // Manually copy input values because cloneNode doesn't
+                        const originalInput = originalCell.querySelector('input');
+                        if (originalInput) {
+                            const newInput = newCell.querySelector('input');
+                            newInput.value = originalInput.value;
+                        }
+                        // Manually copy check cell state
+                        if(originalCell.classList.contains('check-cell')){
+                            newCell.textContent = originalCell.textContent;
+                            newCell.style.backgroundColor = originalCell.style.backgroundColor;
+                        }
+                    });
+                });
+                newTable.appendChild(newTbody);
+                page.appendChild(newTable);
+                printArea.appendChild(page);
+            }
+
+            // Add footer to the last page only
+            if (printArea.lastChild) {
+                printArea.lastChild.appendChild(originalFooter);
+            }
+
             window.print();
         }
 
         window.addEventListener('afterprint', () => {
+            document.getElementById('print-area').innerHTML = ''; // Clean up
             const printButton = document.querySelector('.btn-success');
             printButton.innerHTML = '🖨️ طباعة مباشرة';
             printButton.disabled = false;
@@ -1259,25 +986,21 @@
             const pledgeModal = document.getElementById('pledge-modal');
             const agreeBtn = document.getElementById('agree-btn');
             const mainContent = document.getElementById('record-page');
-
+            const hasAgreed = localStorage.getItem('pledgeAgreed') === 'true';
             const lastPledgeTime = localStorage.getItem('lastPledgeTime');
-            const currentTime = new Date().getTime();
             const oneHour = 60 * 60 * 1000;
 
-            const hasAgreed = localStorage.getItem('pledgeAgreed') === 'true';
-
-            if (!hasAgreed || (currentTime - lastPledgeTime) > oneHour) {
+            if (!hasAgreed || (Date.now() - lastPledgeTime) > oneHour) {
                 pledgeModal.style.display = 'flex';
                 agreeBtn.onclick = function() {
                     localStorage.setItem('pledgeAgreed', 'true');
-                    localStorage.setItem('lastPledgeTime', new Date().getTime());
+                    localStorage.setItem('lastPledgeTime', Date.now());
                     pledgeModal.style.display = 'none';
                     mainContent.style.display = 'block';
                     loadGlobalData();
                     updateInterfaceAndLoadData();
                 };
             } else {
-                pledgeModal.style.display = 'none';
                 mainContent.style.display = 'block';
                 loadGlobalData();
                 updateInterfaceAndLoadData();
@@ -1288,9 +1011,9 @@
             const globalData = localStorage.getItem('globalData');
             if (globalData) {
                 const data = JSON.parse(globalData);
-                document.getElementById('education-dept').value = data.dept;
-                document.getElementById('education-region').value = data.region;
-                document.getElementById('school-name').value = data.school;
+                document.getElementById('education-dept').value = data.dept || '';
+                document.getElementById('education-region').value = data.region || '';
+                document.getElementById('school-name').value = data.school || '';
             }
         }
     </script>
