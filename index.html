@@ -600,6 +600,11 @@
                 word-wrap: break-word;
             }
 
+            /* --- NEW: Fix for Name Column Width on Print --- */
+            .main-table th:nth-child(1), .main-table td:nth-child(1) { width: 3% !important; }
+            .main-table th:nth-child(2), .main-table td:nth-child(2) { width: 18% !important; }
+            /* --- END NEW --- */
+
             .main-table input {
                 border: none !important;
                 background: transparent !important;
