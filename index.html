@@ -555,17 +555,6 @@
             { value: 'ذو القعدة', text: 'ذو القعدة' }, { value: 'ذو الحجة', text: 'ذو الحجة' }
         ];
 
-        function toHijri(date) {
-            if (!date) return { weekday: '', day: '', month: '', year: '' };
-            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', calendar: 'islamic-umalqura' };
-            try {
-                const formatter = new Intl.DateTimeFormat('ar-SA-u-nu-latn', options);
-                const formattedDate = formatter.format(date);
-                const parts = formattedDate.split(' ');
-                const month = hijriMonthsExtended.find(m => m.text.includes(parts[2]));
-                return { weekday: parts[0], day: parts[1], month: month ? month.text : parts[2], year: parts[3] };
-            } catch (e) { console.error("Error formatting Hijri date:", e); return { weekday: '', day: '', month: '', year: '' }; }
-        }
         function getHijriDayAndMonth(date) {
             if (!date) return '';
             const options = { day: 'numeric', month: 'long', calendar: 'islamic-umalqura' };
@@ -832,18 +821,19 @@
         }
 
         function getPrintStyles() {
-            // This string contains all the necessary styles for the print-only window.
             return `
                 <style>
+                    @page { size: A4 landscape; margin: 0.3cm; }
                     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-family: 'Cairo', sans-serif; }
                     body { margin: 0; background: white; }
                     .print-page { page-break-after: always; padding: 0.2cm; box-sizing: border-box; }
                     .print-page:last-child { page-break-after: auto; }
                     .header { background: linear-gradient(135deg, #16445b 0%, #0f2a35 100%) !important; padding: 5px !important; color: white; display: flex; align-items: center; justify-content: flex-start; gap: 15px; }
+                    .logo-section { flex-shrink: 0; }
                     .logo { width: 45px !important; height: auto; }
-                    .input-section input { font-size: 10px; padding: 2px 4px; border-radius: 2px; }
+                    .input-section { display: flex; flex-direction: column; justify-content: center; font-size: 8px; line-height: 1.2; }
                     .title-section { padding: 5px !important; text-align: center; background: #f8f9fa !important; border-bottom: 2px solid #2c5aa0 !important; }
-                    .main-title { font-size: 12px !important; }
+                    .main-title { font-size: 12px !important; margin-bottom: 4px; }
                     .period-input-container span { font-size: 11px !important; color: black !important; }
                     .main-table { width: 100% !important; border-collapse: collapse !important; font-size: 6px !important; table-layout: fixed; }
                     .main-table thead { display: table-header-group !important; }
@@ -873,7 +863,13 @@
             printButton.textContent = 'جاري الطباعة...';
             printButton.disabled = true;
 
-            const headerHTML = document.querySelector('.header').innerHTML;
+            const logoHTML = document.querySelector('.logo-section').innerHTML;
+            const dept = document.getElementById('education-dept').value;
+            const region = document.getElementById('education-region').value;
+            const school = document.getElementById('school-name').value;
+            const headerInfoHTML = `<div class="input-section"><div>${dept}</div><div>${region}</div><div>${school}</div></div>`;
+            const headerHTML = `<div class="logo-section">${logoHTML}</div>${headerInfoHTML}`;
+            
             const titleSectionNode = document.querySelector('.title-section').cloneNode(true);
             const currentDisplayDate = document.getElementById('weekly-dates-display').textContent;
             titleSectionNode.querySelector('#period-input-container').innerHTML = `<span>${currentDisplayDate}</span>`;
@@ -914,16 +910,23 @@
             }
 
             const printWindow = window.open('', '', 'height=800,width=1200');
-            printWindow.document.write(`<!DOCTYPE html><html lang="ar" dir="rtl"><head><title>طباعة السجل</title>${getPrintStyles()}</head><body>${pagesHTML}</body></html>`);
+            const googleFontLink = '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">';
+            printWindow.document.write(`<!DOCTYPE html><html lang="ar" dir="rtl"><head><title>طباعة السجل</title>${googleFontLink}${getPrintStyles()}</head><body>${pagesHTML}</body></html>`);
             printWindow.document.close();
 
             setTimeout(() => {
-                printWindow.print();
-                printWindow.close();
+                try {
+                    printWindow.focus();
+                    printWindow.print();
+                    printWindow.close();
+                } catch (e) {
+                    console.error("Could not print or close the print window.", e);
+                }
                 printButton.innerHTML = '🖨️ طباعة مباشرة';
                 printButton.disabled = false;
             }, 750);
         }
+
 
         window.onload = function() {
             const pledgeModal = document.getElementById('pledge-modal');
