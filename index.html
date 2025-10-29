@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل متابعة المعلمات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hijri@1.1.2/hijri.min.js"></script>
+    <style>
+        /* --- General Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #16445b 0%, #0f2a35 100%);
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 15px;
+            position: relative;
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 280px;
+        }
+        
+        .input-section input {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            transition: all 0.3s ease;
+            height: 28px;
+            width: 260px;
+        }
+        
+        .input-section input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+        
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        
+        .title-section {
+            padding: 30px;
+            text-align: center;
+            background: #f8f9fa;
+            border-bottom: 3px solid #2c5aa0;
+        }
+        
+        .period-selection {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* NEW: Improved button design */
+        .period-btn {
+            padding: 15px 30px;
+            border: 2px solid #2c5aa0;
+            background: white;
+            color: #2c5aa0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .period-btn.active {
+            background: #2c5aa0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+        }
+
+        /* NEW: Smaller icon size */
+        .period-btn img {
+            width: 20px;
+            height: 20px;
+            filter: grayscale(100%) brightness(0);
+            transition: all 0.3s ease;
+        }
+
+        .period-btn.active img {
+            filter: grayscale(0) brightness(1);
+        }
+        
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .month-input {
+            display: inline-block;
+            border: none;
+            border-bottom: 3px solid #2c5aa0;
+            background: transparent;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5aa0;
+            text-align: center;
+            min-width: 150px;
+            padding: 8px;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+        }
+        
+        .month-input:focus {
+            outline: none;
+            border-bottom-color: #1e3a5f;
+        }
+
+        .period-input-container {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5aa0;
+        }
+
+        .day-input, .week-input {
+            border: none;
+            background: transparent;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5aa0;
+            text-align: center;
+            padding: 8px;
+            font-family: 'Cairo', sans-serif;
+            border-bottom: 3px solid #2c5aa0;
+            cursor: pointer;
+        }
+
+        .controls {
+            padding: 25px 30px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .names-input {
+            flex: 1;
+            min-width: 350px;
+        }
+        
+        .names-input label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .names-input textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .names-input textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary { background: #2c5aa0; color: white; }
+        .btn-primary:hover { background: #1e3a5f; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3); }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #218838; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3); }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3); }
+        .btn-warning { background: #ffc107; color: white; }
+        .btn-warning:hover { background: #e0a800; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3); }
+        .btn-info { background: #17a2b8; color: white; }
+        .btn-info:hover { background: #138496; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3); }
+        
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            font-family: 'Cairo', sans-serif;
+            background: white;
+        }
+        
+        .main-table th,
+        .main-table td {
+            border: 1px solid #ddd;
+            padding: 5px; /* Reduced padding for smaller row height */
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .main-table th {
+            font-weight: 600;
+            font-size: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        /* Adjusted font sizes for daily and weekly report headers */
+        .daily-sub-header th, .weekly-sub-header th, .daily-sub-sub-header th, .weekly-sub-sub-header th {
+            font-size: 8px !important;
+        }
+        .main-table .col-number { width: 20px; }
+
+
+        /* Colors for main headers (text is white) */
+        .col-number, .col-name, .col-commitment, .col-elearning, .col-growth, .col-signature,
+        .col-weekly-plan, .col-weekly-eval, .col-weekly-achieve, .col-weekly-growth,
+        .col-monthly-achieve, .col-monthly-develop, .col-monthly-quality {
+            color: #fff;
+        }
+
+        /* Colors for sub-headers (text is black) */
+        .col-commitment-sub, .col-commitment-subsub,
+        .col-elearning-sub, .col-elearning-subsub,
+        .col-growth-sub, .col-growth-subsub,
+        .col-weekly-plan-sub, .col-weekly-eval-sub, .col-weekly-achieve-sub, .col-weekly-growth-sub,
+        .col-monthly-achieve-sub, .col-monthly-develop-sub, .col-monthly-quality-sub, .col-monthly-quality-subsub {
+            color: #000;
+        }
+
+        /* Specific background colors */
+        .col-number { background: #6c757d; }
+        .col-name { background: #495057; }
+        .col-commitment { background: #28a745; }
+        .col-commitment-sub { background: #66d966; }
+        .col-commitment-subsub { background: #99eb99; }
+        .col-elearning { background: #007bff; }
+        .col-elearning-sub { background: #66b3ff; }
+        .col-elearning-subsub { background: #99ccff; }
+        .col-growth { background: #ffc107; }
+        .col-growth-sub { background: #ffdb66; }
+        .col-growth-subsub { background: #ffeeaa; }
+        .col-weekly-plan { background: #007bff; }
+        .col-weekly-plan-sub { background: #66b3ff; }
+        .col-weekly-eval { background: #28a745; }
+        .col-weekly-eval-sub { background: #66d966; }
+        .col-weekly-achieve { background: #ffc107; }
+        .col-weekly-achieve-sub { background: #ffdb66; }
+        .col-weekly-growth { background: #dc3545; }
+        .col-weekly-growth-sub { background: #ff6b7a; }
+        .col-monthly-achieve { background: #28a745; }
+        .col-monthly-achieve-sub { background: #66d966; }
+        .col-monthly-develop { background: #007bff; }
+        .col-monthly-develop-sub { background: #66b3ff; }
+        .col-monthly-quality { background: #ffc107; }
+        .col-monthly-quality-sub { background: #ffdb66; }
+        .col-monthly-quality-subsub { background: #ffeb99; }
+        .col-signature { background: #6f42c1; }
+        
+        .main-table td {
+            background: white;
+        }
+        
+        .main-table input[type="number"] {
+            width: 95px;
+            height: 45px;
+            padding: 8px;
+            border: 1px solid #b0b0b0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #16445b;
+            -moz-appearance: textfield;
+        }
+
+        .main-table input[type="number"]::-webkit-outer-spin-button,
+        .main-table input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .main-table input[type="text"] {
+            width: 140px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+        }
+
+        .main-table .small-input {
+            width: 40px; /* Further reduced width */
+            height: 25px; /* Further reduced height */
+            font-size: 10px; /* Reduced font size */
+            padding: 2px;
+        }
+        
+        .check-cell {
+            cursor: pointer;
+            font-size: 18px;
+            padding: 12px;
+            transition: all 0.2s ease;
+            min-width: 50px;
+        }
+        
+        .check-cell:hover {
+            background: #f8f9fa;
+        }
+        
+        /* --- START: UPDATED FOOTER STYLES --- */
+        .footer {
+            padding: 30px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .signature-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+        /* --- END: UPDATED FOOTER STYLES --- */
+        
+        .signature-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 300px;
+            align-items: center;
+        }
+        
+        .signature-input label {
+            display: none;
+        }
+        
+        .signature-input {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .signature-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            transition: border-color 0.3s ease;
+        }
+        
+        .signature-input input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .copyright-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .copyright-text {
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            border: none;
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .gif-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #16445b;
+        }
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-content h2 {
+            font-size: 28px;
+            color: #16445b;
+        }
+        .modal-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .modal-content .instruction {
+            font-weight: 600;
+            color: #555;
+        }
+        .channel-info {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .channel-info p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .channel-info img {
+            width: 100px;
+            transition: transform 0.3s ease;
+        }
+        .channel-info a:hover img {
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .header { flex-direction: column; text-align: center; }
+            .controls, .footer { flex-direction: column; }
+            .names-input { min-width: 100%; }
+            .main-table { font-size: 11px; }
+            .main-table th, .main-table td { padding: 8px; }
+            .main-title { font-size: 24px; }
+            .month-input { font-size: 20px; }
+        }
+
+        /* --- PRINT STYLES --- */
+        @page {
+            size: A4 landscape;
+            margin: 0.3cm;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            
+            html, body {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                font-size: 6.5px !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            
+            .header {
+                padding: 5px !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+            }
+
+            .title-section { padding: 5px !important; }
+            .logo { width: 45px !important; height: auto !important; }
+            
+            .day-input, .week-input, .month-select { display: none !important; } /* تم إضافة month-select هنا */
+            .month-display { display: inline-block !important; } /* لضمان ظهور النص */
+            
+            .period-input-container {
+                font-size: 11px !important;
+                color: black !important;
+            }
+
+            .period-input-container input {
+                border-bottom: 1px solid #000 !important;
+                font-size: 11px !important;
+                color: #000 !important;
+                background: transparent !important;
+            }
+            
+            .main-table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                font-size: 6px !important;
+                margin: 0 !important;
+                table-layout: fixed;
+            }
+
+            .main-table th {
+                font-size: 5px !important;
+            }
+
+            .main-table th,
+            .main-table td {
+                border: 1px solid #000 !important;
+                padding: 1px !important;
+                text-align: center !important;
+                vertical-align: middle !important;
+                word-wrap: break-word;
+            }
+
+            .main-table input {
+                border: none !important;
+                background: transparent !important;
+                width: 100% !important;
+                height: 100% !important;
+                text-align: center !important;
+                font-size: 6.5px !important;
+                padding: 0 !important;
+                color: #000 !important;
+            }
+
+            .check-cell { font-size: 8px !important; }
+
+            .footer {
+                padding: 5px 20px 0 20px !important;
+                background: #f8f9fa !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                flex-wrap: nowrap !important;
+                page-break-before: auto;
+            }
+
+            .signature-box { width: auto !important; }
+
+            .signature-box input {
+                font-size: 9px !important;
+                padding: 4px !important;
+                border: none !important;
+                border-bottom: 1px solid #000 !important;
+                border-radius: 0 !important;
+                width: 200px !important;
+                background: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="pledge-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="gif-container">
+                    <img src="https://k.top4top.io/p_35163lq2x1.gif" alt="تعهد" onerror="this.style.display='none'">
+                </div>
+                <h2>تعهد</h2>
+            </div>
+            <p>أقر وأتعهد أمام الله أنني سأستخدم هذا الموقع للأغراض الشخصية فقط، ولن أستخدمه لأي غرض تجاري أو ربحي. كما أتعهد بعدم مشاركة رابط الموقع مع أي شخص آخر.</p>
+            <p class="instruction">يرجى الضغط على "أوافق" للمتابعة</p>
+            <button id="agree-btn" class="btn btn-primary">أوافق</button>
+            <div class="channel-info">
+                <p>لطلباتكم يشرفنا تواصلكم على قناة رسم للتصميم والخدمات التعليمية اضغط على الشعار للانضمام</p>
+                <a href="https://t.me/+SJnY9vPy7yo5YmI1" target="_blank" rel="noopener noreferrer">
+                    <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار القناة" onerror="this.style.display='none'">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="record-page" style="display: none;">
+        <div class="header">
+            <div class="logo-section">
+                <img src="https://salogos.org/wp-content/uploads/2021/11/UntiTtled-1-1300x988.png" alt="شعار وزارة التعليم" class="logo" onerror="this.style.display='none'">
+            </div>
+            
+            <div class="input-section">
+                <input type="text" id="education-dept" placeholder="أدخل الإدارة التعليمية" oninput="saveData('global')">
+                <input type="text" id="education-region" placeholder="أدخل المنطقة التعليمية" oninput="saveData('global')">
+                <input type="text" id="school-name" placeholder="أدخل المدرسة" oninput="saveData('global')">
+            </div>
+        </div>
+        
+        <div class="title-section">
+            <div class="main-title" id="main-title">
+                سجل متابعة المعلمات للعام الدراسي ١٤٤٧ هـ
+                <span id="period-input-container"></span>
+            </div>
+        </div>
+        
+        <div class="controls no-print">
+            <div class="names-input">
+                <label>الصق بيانات المعلمات هنا:</label>
+                <textarea id="names-textarea" placeholder="الصق البيانات هنا...&#10;مثال:&#10;1- فاطمة سعد الأحمد - معلمة لغة عربية - المؤهل: بكالوريوس"></textarea>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="extractNames()">استخراج الأسماء</button>
+                <button class="btn btn-danger" onclick="clearNames()">مسح الأسماء</button>
+                <button class="btn btn-success" onclick="printWithPagination()">🖨️ طباعة مباشرة</button>
+                <button class="btn btn-danger" onclick="clearData()">مسح بيانات الفترة</button>
+                <button class="btn btn-warning" onclick="backupData()">📥 نسخ احتياطي</button>
+                <button class="btn btn-info" onclick="restoreData()">📤 استعادة البيانات</button>
+                <button class="btn btn-danger" onclick="clearAllData()">⚠️ مسح جميع البيانات</button>
+                <input type="file" id="restoreFile" style="display:none;" accept=".txt">
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table class="main-table" id="main-table">
+                </table>
+        </div>
+        
+        <div class="footer">
+            <div class="signature-area">
+                <div class="signature-box">
+                    <div class="signature-input">
+                        <input type="text" id="supervisor-signature" placeholder="الاسم والتوقيع" oninput="saveData()">
+                    </div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-input">
+                        <input type="text" id="school-principal-signature" placeholder="الاسم والتوقيع" oninput="saveData()">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright-section no-print">
+                 <a href="https://t.me/+SJnY9vPy7yo5YmI1" target="_blank" rel="noopener noreferrer">
+                    <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار قناة رسم" class="footer-logo" onerror="this.style.display='none'">
+                </a>
+                <p class="copyright-text">جميع الحقوق محفوظة لقناة رسم للتصميم والخدمات التعليمية 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables and event listeners
+        let currentPeriod = 'weekly'; // Set to weekly by default
+
+        // Hijri date conversion utility
+        const hijriMonthsExtended = [
+            { value: 'محرم', text: 'محرم' },
+            { value: 'صفر', text: 'صفر' },
+            { value: 'ربيع الأول', text: 'ربيع الأول' },
+            { value: 'ربيع الآخر', text: 'ربيع الآخر' },
+            { value: 'جمادى الأولى', text: 'جمادى الأولى' },
+            { value: 'جمادى الآخرة', text: 'جمادى الآخرة' },
+            { value: 'رجب', text: 'رجب' },
+            { value: 'شعبان', text: 'شعبان' },
+            { value: 'رمضان', text: 'رمضان' },
+            { value: 'شوال', text: 'شوال' },
+            { value: 'ذو القعدة', text: 'ذو القعدة' },
+            { value: 'ذو الحجة', text: 'ذو الحجة' }
+        ];
+
+        function toHijri(date) {
+            if (!date) return { weekday: '', day: '', month: '', year: '' };
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                calendar: 'islamic-umalqura'
+            };
+            try {
+                const formatter = new Intl.DateTimeFormat('ar-SA-u-nu-latn', options);
+                const formattedDate = formatter.format(date);
+                const parts = formattedDate.split(' ');
+                const month = hijriMonthsExtended.find(m => m.text.includes(parts[2]));
+                return {
+                    weekday: parts[0],
+                    day: parts[1],
+                    month: month ? month.text : parts[2],
+                    year: parts[3]
+                };
+            } catch (e) {
+                console.error("Error formatting Hijri date:", e);
+                return { weekday: '', day: '', month: '', year: '' };
+            }
+        }
+        function getHijriDayAndMonth(date) {
+            if (!date) return '';
+            const options = {
+                day: 'numeric',
+                month: 'long',
+                calendar: 'islamic-umalqura'
+            };
+            try {
+                const formatter = new Intl.DateTimeFormat('ar-SA-u-nu-latn', options);
+                const formattedDate = formatter.format(date);
+                return formattedDate;
+            } catch (e) {
+                console.error("Error formatting Hijri date:", e);
+                return '';
+            }
+        }
+
+
+        // Detailed evaluation criteria translated into HTML table structures
+        const tableHeaders = {
+            weekly: `
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="col-number">م</th>
+                        <th rowspan="2" class="col-name" id="name-column-header">اسم المعلمة</th>
+                        <th colspan="4" class="col-elearning">التعلم الالكتروني</th>
+                        <th colspan="8" class="col-commitment">معايير الالتزام الوظيفي</th>
+                        <th colspan="7" class="col-growth">التطوير المهني</th>
+                        <th colspan="3" class="col-weekly-achieve">متابعة التحصيل الدراسي</th>
+                        <th colspan="3" class="col-weekly-eval">تنوع اساليب التقويم</th>
+                        <th rowspan="2" class="col-signature" id="signature-column-header">توقيع المعلمة بالاطلاع</th>
+                    </tr>
+                    <tr class="sub-header weekly-sub-header">
+                        <!-- التعلم الالكتروني -->
+                        <th class="col-elearning-sub">متوافق مع توزيع المنهج</th>
+                        <th class="col-elearning-sub">مستوفي العناصر</th>
+                        <th class="col-elearning-sub">اعداد خطة اسبوعية</th>
+                        <th class="col-elearning-sub">اعداد الدروس</th>
+                        <!-- معايير الالتزام الوظيفي -->
+                        <th class="col-commitment-sub">الانضباط في الحضور والانصراف</th>
+                        <th class="col-commitment-sub">حضور الطابور الصباحي</th>
+                        <th class="col-commitment-sub">تفعيل المناوبة</th>
+                        <th class="col-commitment-sub">المشاركة في الانشطة</th>
+                        <th class="col-commitment-sub">الالتزام بزمن الحصة</th>
+                        <th class="col-commitment-sub">تفعيل حصص الانتظار</th>
+                        <th class="col-commitment-sub">المحافظة على الانضباط المدرسي</th>
+                        <th class="col-commitment-sub">التعاون والعمل بروح الفريق</th>
+                        <!-- التطوير المهني -->
+                        <th class="col-growth-sub">مجتمع تعلم مهني</th>
+                        <th class="col-growth-sub">الدورات التدرريبية</th>
+                        <th class="col-growth-sub">ورش العمل</th>
+                        <th class="col-growth-sub">القراءة الموجهة</th>
+                        <th class="col-growth-sub">زيارات تبادلية</th>
+                        <th class="col-growth-sub">درس تطبيقي</th>
+                        <th class="col-growth-sub">لقاء تربوي</th>
+                        <!-- متابعة التحصيل الدراسي -->
+                        <th class="col-weekly-achieve-sub">اختبارات تشخيصية</th>
+                        <th class="col-weekly-achieve-sub">تحليل نتائج</th>
+                        <th class="col-weekly-achieve-sub">خطط علاجية واثرائية</th>
+                        <!-- تنوع اساليب التقويم -->
+                        <th class="col-weekly-eval-sub">اختبارات قصيرة</th>
+                        <th class="col-weekly-eval-sub">ملف انجاز</th>
+                        <th class="col-weekly-eval-sub">مشاريع</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            `
+        };
+        
+        function generateTable() {
+            const table = document.getElementById('main-table');
+            const names = getSavedNames();
+            table.innerHTML = tableHeaders[currentPeriod];
+            
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            
+            if (names.length > 0) {
+                names.forEach((name, index) => addTableRow(name, index + 1));
+            } else {
+                addTableRow('', 1);
+                addTableRow('', 2);
+            }
+        }
+        
+        function getNamesFromTable() {
+            const tbody = document.getElementById('table-body');
+            if (!tbody) {
+                return [];
+            }
+            const names = [];
+            const rows = tbody.querySelectorAll('tr');
+            rows.forEach(row => {
+                const nameInput = row.querySelector('td:nth-child(2) input');
+                if (nameInput) {
+                    names.push(nameInput.value);
+                }
+            });
+            return names;
+        }
+        
+        function saveNames(names) {
+            localStorage.setItem('teacherNames', JSON.stringify(names));
+        }
+
+        function updateAndSaveNames() {
+            const names = getNamesFromTable();
+            saveNames(names);
+        }
+
+        function getSavedNames() {
+            const names = localStorage.getItem('teacherNames');
+            return names ? JSON.parse(names) : [];
+        }
+
+        function getPeriodKey() {
+            let periodKey = '';
+            const startInput = document.getElementById('week-start-input');
+            const endInput = document.getElementById('week-end-input');
+            if (startInput && endInput && startInput.value && endInput.value) {
+                periodKey = 'weekly-' + startInput.value + '-' + endInput.value;
+            }
+            return periodKey;
+        }
+        
+        function saveData(type = 'period') {
+            const dataToSave = {};
+
+            if (type === 'global') {
+                dataToSave.dept = document.getElementById('education-dept').value;
+                dataToSave.region = document.getElementById('education-region').value;
+                dataToSave.school = document.getElementById('school-name').value;
+                localStorage.setItem('globalData', JSON.stringify(dataToSave));
+                return;
+            }
+            
+            const periodKey = getPeriodKey();
+            if (!periodKey) {
+                console.error("No period key to save data.");
+                return;
+            }
+
+            const tableData = [];
+            const tableBody = document.getElementById('table-body');
+            const rows = tableBody.querySelectorAll('tr');
+            
+            rows.forEach(row => {
+                const rowData = [];
+                const cells = row.querySelectorAll('td');
+                cells.forEach(cell => {
+                    const input = cell.querySelector('input');
+                    const check = cell.textContent.trim();
+                    if (input) {
+                        rowData.push({ type: 'input', value: input.value, isSignature: input.classList.contains('signature-input') });
+                    } else if (cell.classList.contains('check-cell')) {
+                        rowData.push({ type: 'check', value: check });
+                    } else {
+                        rowData.push({ type: 'text', value: cell.textContent.trim() });
+                    }
+                });
+                tableData.push(rowData);
+            });
+
+            dataToSave.tableData = tableData;
+            dataToSave.signatures = {
+                supervisor: document.getElementById('supervisor-signature').value,
+                schoolPrincipal: document.getElementById('school-principal-signature').value
+            };
+            
+            localStorage.setItem(periodKey, JSON.stringify(dataToSave));
+        }
+
+        function loadData() {
+            const periodKey = getPeriodKey();
+            generateTable();
+
+            if (periodKey) {
+                const savedData = localStorage.getItem(periodKey);
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    document.getElementById('supervisor-signature').value = data.signatures?.supervisor || '';
+                    document.getElementById('school-principal-signature').value = data.signatures?.schoolPrincipal || '';
+                    
+                    const tableBody = document.getElementById('table-body');
+                    if (data.tableData) {
+                        const rows = tableBody.querySelectorAll('tr');
+                        data.tableData.forEach((rowData, rowIndex) => {
+                            const row = rows[rowIndex];
+                            if (row) {
+                                const cells = row.querySelectorAll('td');
+                                rowData.forEach((cellData, cellIndex) => {
+                                    if (cells[cellIndex]) {
+                                        if (cellData.type === 'check') {
+                                            cells[cellIndex].textContent = cellData.value;
+                                            if (cellData.value === '✅') {
+                                                cells[cellIndex].style.backgroundColor = '#d4edda';
+                                            } else if (cellData.value === '❌') {
+                                                cells[cellIndex].style.backgroundColor = '#f8d7da';
+                                            }
+                                        } else if (cellData.type === 'input') {
+                                            const input = cells[cellIndex].querySelector('input');
+                                            if (input) {
+                                                input.value = cellData.value;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                } else {
+                    document.getElementById('supervisor-signature').value = '';
+                    document.getElementById('school-principal-signature').value = '';
+                }
+            }
+        }
+        
+        function clearData() {
+            if (confirm('هل أنت متأكد من مسح بيانات الفترة الحالية فقط؟')) {
+                const periodKey = getPeriodKey();
+                if (periodKey) {
+                    localStorage.removeItem(periodKey);
+                }
+                loadData();
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('هل أنت متأكد من مسح جميع البيانات نهائياً؟ هذا الإجراء لا يمكن التراجع عنه.')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+        
+        function clearNames() {
+            if (confirm('هل أنت متأكد من مسح جميع الأسماء المحفوظة؟')) {
+                localStorage.removeItem('teacherNames');
+                loadData();
+            }
+        }
+
+        function backupData() {
+            const dataToBackup = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                dataToBackup[key] = localStorage.getItem(key);
+            }
+            const dataStr = JSON.stringify(dataToBackup, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `سجل_متابعة_المعلمات_نسخة_احتياطية_${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            alert('تم حفظ النسخة الاحتياطية بنجاح.');
+        }
+
+        function restoreData() {
+            const fileInput = document.getElementById('restoreFile');
+            fileInput.click();
+            fileInput.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) {
+                    return;
+                }
+                if (confirm('سيتم استعادة البيانات من الملف، هذا سيؤدي إلى حذف جميع البيانات الحالية. هل أنت متأكد؟')) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        try {
+                            const restoredData = JSON.parse(event.target.result);
+                            localStorage.clear();
+                            for (const key in restoredData) {
+                                localStorage.setItem(key, restoredData[key]);
+                            }
+                            alert('تم استعادة البيانات بنجاح.');
+                            location.reload();
+                        } catch (error) {
+                            alert('فشل في استعادة البيانات. يرجى التأكد من أن الملف صحيح.');
+                            console.error('Error restoring data:', error);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+        }
+        
+        function updateInterfaceAndLoadData() {
+            const periodInputContainer = document.getElementById('period-input-container');
+            
+            let titleText = `سجل متابعة المعلمات للعام الدراسي ١٤٤٧ هـ خلال الأسبوع`;
+            let inputHtml = `
+                <span id="weekly-dates-display"></span>
+                <span class="period-input-label no-print">من</span> <input type="date" class="week-input no-print" id="week-start-input">
+                <span class="period-input-label no-print">إلى</span> <input type="date" class="week-input no-print" id="week-end-input">
+            `;
+
+            const mainTitle = document.getElementById('main-title');
+            if (mainTitle && mainTitle.firstChild) {
+                mainTitle.firstChild.textContent = titleText;
+            }
+            if (periodInputContainer) {
+                periodInputContainer.innerHTML = inputHtml;
+            }
+
+            const weekStartInput = document.getElementById('week-start-input');
+            const weekEndInput = document.getElementById('week-end-input');
+            const today = new Date();
+            const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            weekStartInput.value = startOfWeek.toISOString().slice(0, 10);
+            weekEndInput.value = endOfWeek.toISOString().slice(0, 10);
+            weekStartInput.addEventListener('change', () => updateWeeklyDates());
+            weekEndInput.addEventListener('change', () => updateWeeklyDates());
+            
+            updateDisplayDates();
+            loadData();
+            saveData('global');
+        }
+
+        function updateDisplayDates() {
+            updateWeeklyDates();
+        }
+
+        function updateWeeklyDates() {
+            const startInput = document.getElementById('week-start-input');
+            const endInput = document.getElementById('week-end-input');
+            const displaySpan = document.getElementById('weekly-dates-display');
+            if (startInput && endInput && displaySpan && startInput.value && endInput.value) {
+                const startDate = new Date(startInput.value);
+                const endDate = new Date(endInput.value);
+                const hijriStart = getHijriDayAndMonth(startDate);
+                const hijriEnd = getHijriDayAndMonth(endDate);
+                displaySpan.textContent = `الأسبوع من ${hijriStart} إلى ${hijriEnd}`;
+                loadData();
+            } else {
+                displaySpan.textContent = '';
+            }
+        }
+
+        function cleanAndExtractName(text) {
+            let parts = text.split(/\t+|\s{2,}/).map(part => part.trim()).filter(part => part.length > 0);
+            
+            if (parts.length >= 2) {
+                let fullName = parts[1]; 
+                let nameWords = fullName.split(/\s+/).filter(word => {
+                    word = word.trim();
+                    return word.length > 0 && /^[\u0600-\u06FF]+$/.test(word);
+                });
+                
+                if (nameWords.length >= 2) {
+                    return nameWords[0] + " " + nameWords[nameWords.length - 1];
+                } else if (nameWords.length === 1) {
+                    return nameWords[0];
+                }
+            }
+            
+            let cleaned = text.replace(/[0-9\-\:\.\،\,\(\)\[\]\/\\]/g, ' ');
+            
+            const unwantedWords = [
+                'التخصص', 'رقم', 'الهوية', 'السجل', 'المادة', 'المؤهل', 'القسم', 'المرحلة',
+                'المعلم', 'المعلمة', 'الأستاذ', 'مشرف', 'معلم', 'معلمة', 'أستاذ', 'دكتور',
+                'بكالوريوس', 'ماجستير', 'دكتوراه', 'رياضيات', 'عربية', 'إنجليزية', 'علوم',
+                'تاريخ', 'جغرافيا', 'فيزياء', 'كيمياء', 'أحياء', 'حاسوب', 'تربية', 'إسلامية',
+                'فنية', 'بدنية', 'اجتماعيات', 'لغة', 'الرياضيات', 'العلوم', 'التاريخ',
+                'الجغرافيا', 'الفيزياء', 'الكيمياء', 'الأحياء', 'الحاسوب', 'التربية',
+                'دائم', 'مؤقت', 'بديل', 'صفوف', 'أولية', 'دين'
+            ];
+            
+            unwantedWords.forEach(word => {
+                const regex = new RegExp(word, 'gi');
+                cleaned = cleaned.replace(regex, ' ');
+            });
+            
+            let words = cleaned.split(/\s+/).filter(word => {
+                word = word.trim();
+                if (word.length === 0) return false;
+                return /^[\u0600-\u06FF]+$/.test(word) && word.length >= 2;
+            });
+            
+            if (words.length >= 2) {
+                return words[0] + " " + words[words.length - 1];
+            } else if (words.length === 1) {
+                return words[0];
+            }
+            
+            return '';
+        }
+
+        function extractNames() {
+            const textarea = document.getElementById('names-textarea');
+            const lines = textarea.value.split('\n').filter(line => line.trim() !== '');
+            
+            if (lines.length === 0) return;
+            
+            const extractedNames = [];
+            lines.forEach(line => {
+                const extractedName = cleanAndExtractName(line);
+                if (extractedName) {
+                    extractedNames.push(extractedName);
+                }
+            });
+            
+            if (extractedNames.length === 0) return;
+            
+            saveNames(extractedNames);
+            textarea.value = '';
+            
+            generateTable();
+            loadData();
+        }
+
+        const weeklyRowStructure = Array(25).fill('check');
+
+        function addTableRow(name, number) {
+            const tbody = document.getElementById('table-body');
+            const row = document.createElement('tr');
+            
+            let cellsHtml = `<td>${number}</td><td><input type="text" value="${name}" class="name-input" oninput="updateAndSaveNames()"></td>`;
+            
+            const structure = weeklyRowStructure;
+
+            structure.forEach(type => {
+                if (type === 'check') {
+                    cellsHtml += `<td class="check-cell" onclick="toggleCheck(this)"></td>`;
+                } else if (type === 'number') {
+                    cellsHtml += `<td><input type="number" class="small-input" oninput="saveData()"></td>`;
+                } else if (type === 'text') {
+                    cellsHtml += `<td><input type="text" class="small-input" oninput="saveData()"></td>`;
+                }
+            });
+
+            cellsHtml += `<td><input type="text" class="signature-input" oninput="saveData()"></td>`;
+
+            row.innerHTML = cellsHtml;
+            tbody.appendChild(row);
+        }
+
+        function toggleCheck(cell) {
+            const currentContent = cell.textContent.trim();
+            
+            if (currentContent === '') {
+                cell.textContent = '✅';
+                cell.style.backgroundColor = '#d4edda';
+            } else if (currentContent === '✅') {
+                cell.textContent = '❌';
+                cell.style.backgroundColor = '#f8d7da';
+            } else {
+                cell.textContent = '';
+                cell.style.backgroundColor = '';
+            }
+            saveData();
+        }
+
+        function printWithPagination() {
+            const tableBody = document.getElementById('table-body');
+            const rows = tableBody.querySelectorAll('tr');
+            const rowsPerPage = 28;
+
+            for (let i = rowsPerPage - 1; i < rows.length - 1; i += rowsPerPage) {
+                if (rows[i]) {
+                    rows[i].classList.add('print-page-break');
+                }
+            }
+            const printButton = document.querySelector('.btn-success');
+            printButton.textContent = 'جاري الطباعة...';
+            printButton.disabled = true;
+
+            window.print();
+        }
+
+        window.addEventListener('afterprint', () => {
+            document.querySelectorAll('.print-page-break').forEach(el => {
+                el.classList.remove('print-page-break');
+            });
+            const printButton = document.querySelector('.btn-success');
+            printButton.innerHTML = '🖨️ طباعة مباشرة';
+            printButton.disabled = false;
+        });
+
+        window.onload = function() {
+            const pledgeModal = document.getElementById('pledge-modal');
+            const agreeBtn = document.getElementById('agree-btn');
+            const mainContent = document.getElementById('record-page');
+
+            const lastPledgeTime = localStorage.getItem('lastPledgeTime');
+            const currentTime = new Date().getTime();
+            const oneHour = 60 * 60 * 1000;
+
+            const hasAgreed = localStorage.getItem('pledgeAgreed') === 'true';
+
+            if (!hasAgreed || (currentTime - lastPledgeTime) > oneHour) {
+                pledgeModal.style.display = 'flex';
+                agreeBtn.onclick = function() {
+                    localStorage.setItem('pledgeAgreed', 'true');
+                    localStorage.setItem('lastPledgeTime', new Date().getTime());
+                    pledgeModal.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    loadGlobalData();
+                    updateInterfaceAndLoadData();
+                };
+            } else {
+                pledgeModal.style.display = 'none';
+                mainContent.style.display = 'block';
+                loadGlobalData();
+                updateInterfaceAndLoadData();
+            }
+        };
+        
+        function loadGlobalData() {
+            const globalData = localStorage.getItem('globalData');
+            if (globalData) {
+                const data = JSON.parse(globalData);
+                document.getElementById('education-dept').value = data.dept;
+                document.getElementById('education-region').value = data.region;
+                document.getElementById('school-name').value = data.school;
+            }
+        }
+    </script>
+</body>
+</html>
