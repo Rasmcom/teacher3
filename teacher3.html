@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل متابعة المعلمين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #16445b 0%, #0f2a35 100%);
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 15px;
+            position: relative;
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 280px;
+        }
+        
+        .input-section input {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            transition: all 0.3s ease;
+            height: 28px;
+            width: 260px;
+        }
+        
+        .input-section input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+        
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        
+        .title-section {
+            padding: 30px;
+            text-align: center;
+            background: #f8f9fa;
+            border-bottom: 3px solid #2c5aa0;
+        }
+        
+        .gender-selection {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .gender-btn {
+            padding: 15px 30px;
+            border: 2px solid #2c5aa0;
+            background: white;
+            color: #2c5aa0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .gender-btn.active {
+            background: #2c5aa0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+        }
+        
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .month-input {
+            display: inline-block;
+            border: none;
+            border-bottom: 3px solid #2c5aa0;
+            background: transparent;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5aa0;
+            text-align: center;
+            min-width: 150px;
+            padding: 8px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .month-input:focus {
+            outline: none;
+            border-bottom-color: #1e3a5f;
+        }
+        
+        .controls {
+            padding: 25px 30px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .names-input {
+            flex: 1;
+            min-width: 350px;
+        }
+        
+        .names-input label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .names-input textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .names-input textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary { background: #2c5aa0; color: white; }
+        .btn-primary:hover { background: #1e3a5f; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3); }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #218838; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3); }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3); }
+        
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            font-family: 'Cairo', sans-serif;
+            background: white;
+        }
+        
+        .main-table th,
+        .main-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .main-table th {
+            font-weight: 600;
+            color: white;
+            font-size: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .col-number { background: #6c757d; }
+        .col-name { background: #495057; }
+        .col-elearning { background: #007bff; }
+        .col-elearning-sub { background: #66b3ff; color: #000 !important; }
+        .col-elearning-subsub { background: #b3d9ff; color: #000 !important; }
+        .col-commitment { background: #28a745; }
+        .col-commitment-sub { background: #66d966; color: #000 !important; }
+        .col-growth { background: #ffc107; }
+        .col-growth-sub { background: #ffdb66; color: #000 !important; }
+        .col-achievement { background: #dc3545; }
+        .col-achievement-sub { background: #ff6b7a; color: #000 !important; }
+        .col-achievement-subsub { background: #ffb3ba; color: #000 !important; }
+        .col-signature { background: #6f42c1; }
+        
+        .main-table td {
+            background: white;
+        }
+        
+        .main-table input[type="number"] {
+            width: 95px;
+            height: 45px;
+            padding: 8px;
+            border: 1px solid #b0b0b0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #16445b;
+            -moz-appearance: textfield;
+        }
+
+        .main-table input[type="number"]::-webkit-outer-spin-button,
+        .main-table input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .main-table input[type="text"] {
+            width: 140px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+        }
+        
+        .check-cell {
+            cursor: pointer;
+            font-size: 18px;
+            padding: 12px;
+            transition: all 0.2s ease;
+            min-width: 50px;
+        }
+        
+        .check-cell:hover {
+            background: #f8f9fa;
+        }
+        
+        /* --- START: UPDATED FOOTER STYLES --- */
+        .footer {
+            padding: 30px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center;    /* Center items horizontally */
+            gap: 30px; /* Add space between signature area and copyright */
+        }
+
+        .signature-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+        /* --- END: UPDATED FOOTER STYLES --- */
+        
+        .signature-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 300px;
+            align-items: center;
+        }
+        
+        .signature-input label {
+            display: none;
+        }
+        
+        .signature-input {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .signature-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            transition: border-color 0.3s ease;
+        }
+        
+        .signature-input input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .copyright-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .copyright-text {
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            border: none;
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .gif-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #16445b;
+        }
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-content h2 {
+            font-size: 28px;
+            color: #16445b;
+        }
+        .modal-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .modal-content .instruction {
+            font-weight: 600;
+            color: #555;
+        }
+        .channel-info {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .channel-info p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .channel-info img {
+            width: 100px;
+            transition: transform 0.3s ease;
+        }
+        .channel-info a:hover img {
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .header { flex-direction: column; text-align: center; }
+            .controls, .footer { flex-direction: column; }
+            .names-input { min-width: 100%; }
+            .main-table { font-size: 11px; }
+            .main-table th, .main-table td { padding: 8px; }
+            .main-title { font-size: 24px; }
+            .month-input { font-size: 20px; }
+        }
+
+        /* --- PRINT STYLES --- */
+        @page {
+            size: A4 landscape;
+            margin: 0.3cm;
+        }
+        
+        @media print {
+            .no-print, .controls, .gender-selection, .modal-overlay { display: none !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            
+            html, body {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                font-size: 6.5px !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            
+            .header {
+                padding: 5px !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+            }
+
+            .title-section { padding: 5px !important; }
+            .logo { width: 45px !important; height: auto !important; }
+            .main-title { font-size: 11px !important; }
+            .month-input { font-size: 11px !important; border: none !important; border-bottom: 1px solid #000 !important; }
+            .table-container { padding: 0 !important; width: 100% !important; overflow: hidden !important; }
+            
+            .main-table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                font-size: 6px !important;
+                margin: 0 !important;
+                table-layout: fixed;
+            }
+
+            thead { display: table-header-group; }
+            tr.print-page-break { page-break-after: always; }
+            
+            .main-table th,
+            .main-table td {
+                border: 1px solid #000 !important;
+                padding: 1px !important;
+                text-align: center !important;
+                vertical-align: middle !important;
+                word-wrap: break-word;
+            }
+
+            .main-table th:nth-child(1), .main-table td:nth-child(1) { width: 2%; }
+            .main-table th:nth-child(2), .main-table td:nth-child(2) { width: 12%; }
+            .main-table .check-cell { width: 2.7%; }
+            .main-table .number-cell { width: 3.5%; }
+            .main-table th:last-child, .main-table td:last-child { width: 8%; }
+
+            .main-table th { font-size: 5px !important; }
+            
+            .main-table input {
+                border: none !important;
+                background: transparent !important;
+                width: 100% !important;
+                height: 100% !important;
+                text-align: center !important;
+                font-size: 6.5px !important;
+                padding: 0 !important;
+                color: #000 !important;
+            }
+
+            .check-cell { font-size: 8px !important; }
+
+            .footer {
+                padding: 5px 20px 0 20px !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                flex-wrap: nowrap !important;
+                page-break-before: auto;
+            }
+
+            .signature-box { width: auto !important; }
+
+            .signature-box input {
+                font-size: 9px !important;
+                padding: 4px !important;
+                border: none !important;
+                border-bottom: 1px solid #000 !important;
+                border-radius: 0 !important;
+                width: 200px !important;
+                background: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="pledge-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="gif-container">
+                    <img src="https://k.top4top.io/p_35163lq2x1.gif" alt="تعهد" onerror="this.style.display='none'">
+                </div>
+                <h2>تعهد</h2>
+            </div>
+            <p>أقر وأتعهد أمام الله أنني سأستخدم هذا الموقع للأغراض الشخصية فقط، ولن أستخدمه لأي غرض تجاري أو ربحي. كما أتعهد بعدم مشاركة رابط الموقع مع أي شخص آخر.</p>
+            <p class="instruction">يرجى الضغط على "أوافق" للمتابعة</p>
+            <button id="agree-btn" class="btn btn-primary">أوافق</button>
+            <div class="channel-info">
+                <p>لطلباتكم يشرفنا تواصلكم على قناة رسم للتصميم والخدمات التعليمية اضغط على الشعار للانضمام</p>
+                <a href="https://t.me/+SJnY9vPy7yo5YmI1" target="_blank" rel="noopener noreferrer">
+                    <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار القناة" onerror="this.style.display='none'">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="record-page" style="display: none;">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <img src="https://salogos.org/wp-content/uploads/2021/11/UntiTtled-1-1300x988.png" alt="شعار وزارة التعليم" class="logo" onerror="this.style.display='none'">
+            </div>
+            
+            <div class="input-section">
+                <input type="text" id="education-dept" placeholder="أدخل الإدارة التعليمية" oninput="saveData()">
+                <input type="text" id="education-region" placeholder="أدخل المنطقة التعليمية" oninput="saveData()">
+                <input type="text" id="school-name" placeholder="أدخل المدرسة" oninput="saveData()">
+            </div>
+        </div>
+        
+        <!-- Title Section -->
+        <div class="title-section">
+            <div class="gender-selection">
+                <button class="gender-btn active" onclick="selectGender('male')">معلم</button>
+                <button class="gender-btn" onclick="selectGender('female')">معلمة</button>
+            </div>
+            
+            <div class="main-title" id="main-title">
+                سجل متابعة المعلم للعام الدراسي ١٤٤٧ هـ خلال شهر 
+                <input type="text" class="month-input" id="month-input" placeholder="الشهر" value="" oninput="saveData()">
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls no-print">
+            <div class="names-input">
+                <label>الصق بيانات المعلمين/المعلمات هنا:</label>
+                <textarea id="names-textarea" placeholder="الصق البيانات هنا...&#10;مثال:&#10;1- أحمد محمد العلي - معلم رياضيات - رقم الهوية: 1234567890&#10;2- فاطمة سعد الأحمد - معلمة لغة عربية - المؤهل: بكالوريوس"></textarea>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="extractNames()">استخراج الأسماء</button>
+                <button class="btn btn-success" onclick="printWithPagination()">🖨️ طباعة مباشرة</button>
+                <button class="btn btn-danger" onclick="clearData()">مسح البيانات</button>
+            </div>
+        </div>
+        
+        <!-- Table -->
+        <div class="table-container">
+            <table class="main-table" id="main-table">
+                <thead>
+                    <tr>
+                        <th rowspan="3" class="col-number">م</th>
+                        <th rowspan="3" class="col-name" id="name-column-header">اسم المعلم</th>
+                        <th colspan="6" class="col-elearning">التعليم الإلكتروني (مدرستي)</th>
+                        <th colspan="6" class="col-commitment">معايير الالتزام الوظيفي</th>
+                        <th colspan="5" class="col-growth">معايير النمو المهني</th>
+                        <th colspan="7" class="col-achievement">متابعة التحصيل الدراسي</th>
+                        <th rowspan="3" class="col-signature">توقيع المعلم/ـة بالاطلاع</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="col-elearning-sub">تحضير الدروس</th>
+                        <th rowspan="2" class="col-elearning-sub">عدد الأنشطة</th>
+                        <th rowspan="2" class="col-elearning-sub">عدد الإختبارات</th>
+                        <th rowspan="2" class="col-elearning-sub">عدد الدروس المعدة</th>
+                        <th rowspan="2" class="col-elearning-sub">الدروس غير المعدة</th>
+                        <th rowspan="2" class="col-commitment-sub">الإلتزام بالدوام</th>
+                        <th rowspan="2" class="col-commitment-sub">حضور الطابور </th>
+                        <th rowspan="2" class="col-commitment-sub">الإلتزام بزمن الحصص</th>
+                        <th rowspan="2" class="col-commitment-sub">الأنشطة اللاصفية</th>
+                        <th rowspan="2" class="col-commitment-sub">البيئة المدرسية</th>
+                        <th rowspan="2" class="col-commitment-sub">التعاون وروح الفريق</th>
+                        <th rowspan="2" class="col-growth-sub">مجتمع مهني</th>
+                        <th rowspan="2" class="col-growth-sub">زيارة تبادلية</th>
+                        <th rowspan="2" class="col-growth-sub">ورشة عمل</th>
+                        <th rowspan="2" class="col-growth-sub">درس تطبيقي</th>
+                        <th rowspan="2" class="col-growth-sub">استراتيجيات</th>
+                        <th rowspan="2" class="col-achievement-sub">اختبارات تشخيصية</th>
+                        <th rowspan="2" class="col-achievement-sub">تحليل النتائج</th>
+                        <th rowspan="2" class="col-achievement-sub">الخطط العلاجية</th>
+                        <th colspan="4" class="col-achievement-sub">تنوع أساليب التقويم</th>
+                    </tr>
+                    <tr>
+                        <th class="col-elearning-subsub">ملائم للخطة</th>
+                        <th class="col-elearning-subsub">مستوفي العناصر</th>
+                        <th class="col-achievement-subsub">اختبارات قصيرة</th>
+                        <th class="col-achievement-subsub">ملف الإنجاز</th>
+                        <th class="col-achievement-subsub">واجبات</th>
+                        <th class="col-achievement-subsub">مشاريع</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body" oninput="saveData()">
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <!-- START: UPDATED FOOTER STRUCTURE -->
+            <div class="signature-area">
+                <div class="signature-box">
+                    <div class="signature-input">
+                        <input type="text" id="signature-title" placeholder="الاسم والتوقيع">
+                    </div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-input">
+                        <input type="text" id="signature-name" placeholder="الاسم والتوقيع">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright-section no-print">
+                 <a href="https://t.me/+SJnY9vPy7yo5YmI1" target="_blank" rel="noopener noreferrer">
+                    <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار قناة رسم" class="footer-logo" onerror="this.style.display='none'">
+                </a>
+                <p class="copyright-text">جميع الحقوق محفوظة لقناة رسم للتصميم والخدمات التعليمية 2025</p>
+            </div>
+            <!-- END: UPDATED FOOTER STRUCTURE -->
+        </div>
+    </div>
+
+    <script>
+        let currentGender = 'male';
+        let rowCounter = 0;
+
+        function saveData() {
+            const data = {
+                dept: document.getElementById('education-dept').value,
+                region: document.getElementById('education-region').value,
+                school: document.getElementById('school-name').value,
+                month: document.getElementById('month-input').value,
+                gender: currentGender,
+                tableHTML: document.getElementById('table-body').innerHTML
+            };
+            localStorage.setItem('teacherRecordData', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const savedData = localStorage.getItem('teacherRecordData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('education-dept').value = data.dept;
+                document.getElementById('education-region').value = data.region;
+                document.getElementById('school-name').value = data.school;
+                document.getElementById('month-input').value = data.month;
+                document.getElementById('table-body').innerHTML = data.tableHTML;
+                selectGender(data.gender || 'male', false);
+                rowCounter = document.getElementById('table-body').rows.length;
+                return true;
+            }
+            return false;
+        }
+
+        function clearData() {
+            localStorage.removeItem('teacherRecordData');
+            localStorage.removeItem('pledgeAgreed'); // Also clear the pledge
+            location.reload();
+        }
+
+        function selectGender(gender, shouldSave = true) {
+            currentGender = gender;
+            
+            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.gender-btn[onclick="selectGender('${gender}')"]`).classList.add('active');
+            
+            const title = document.getElementById('main-title');
+            const columnHeader = document.getElementById('name-column-header');
+            const monthInput = document.getElementById('month-input');
+            const monthInputValue = monthInput.value;
+
+            if (gender === 'male') {
+                title.innerHTML = `سجل متابعة المعلم للعام الدراسي ١٤٤٧ هـ خلال شهر <input type="text" class="month-input" id="month-input" placeholder="الشهر" value="${monthInputValue}" oninput="saveData()">`;
+                columnHeader.textContent = 'اسم المعلم';
+            } else {
+                title.innerHTML = `سجل متابعة المعلمات للعام الدراسي ١٤٤٧ هـ خلال شهر <input type="text" class="month-input" id="month-input" placeholder="الشهر" value="${monthInputValue}" oninput="saveData()">`;
+                columnHeader.textContent = 'اسم المعلمة';
+            }
+            document.getElementById('month-input').oninput = saveData;
+
+            if (shouldSave) {
+                saveData();
+            }
+        }
+
+        function cleanAndExtractName(text) {
+            let parts = text.split(/\t+|\s{2,}/).map(part => part.trim()).filter(part => part.length > 0);
+            
+            if (parts.length >= 2) {
+                let fullName = parts[1]; 
+                let nameWords = fullName.split(/\s+/).filter(word => {
+                    word = word.trim();
+                    return word.length > 0 && /^[\u0600-\u06FF]+$/.test(word);
+                });
+                
+                if (nameWords.length >= 2) {
+                    return nameWords[0] + " " + nameWords[nameWords.length - 1];
+                } else if (nameWords.length === 1) {
+                    return nameWords[0];
+                }
+            }
+            
+            let cleaned = text.replace(/[0-9\-\:\.\،\,\(\)\[\]\/\\]/g, ' ');
+            
+            const unwantedWords = [
+                'التخصص', 'رقم', 'الهوية', 'السجل', 'المادة', 'المؤهل', 'القسم', 'المرحلة',
+                'المعلم', 'المعلمة', 'الأستاذ', 'مشرف', 'معلم', 'معلمة', 'أستاذ', 'دكتور',
+                'بكالوريوس', 'ماجستير', 'دكتوراه', 'رياضيات', 'عربية', 'إنجليزية', 'علوم',
+                'تاريخ', 'جغرافيا', 'فيزياء', 'كيمياء', 'أحياء', 'حاسوب', 'تربية', 'إسلامية',
+                'فنية', 'بدنية', 'اجتماعيات', 'لغة', 'الرياضيات', 'العلوم', 'التاريخ',
+                'الجغرافيا', 'الفيزياء', 'الكيمياء', 'الأحياء', 'الحاسوب', 'التربية',
+                'دائم', 'مؤقت', 'بديل', 'صفوف', 'أولية', 'دين'
+            ];
+            
+            unwantedWords.forEach(word => {
+                const regex = new RegExp(word, 'gi');
+                cleaned = cleaned.replace(regex, ' ');
+            });
+            
+            let words = cleaned.split(/\s+/).filter(word => {
+                word = word.trim();
+                if (word.length === 0) return false;
+                return /^[\u0600-\u06FF]+$/.test(word) && word.length >= 2;
+            });
+            
+            if (words.length >= 2) {
+                return words[0] + " " + words[words.length - 1];
+            } else if (words.length === 1) {
+                return words[0];
+            }
+            
+            return '';
+        }
+
+        function extractNames() {
+            const textarea = document.getElementById('names-textarea');
+            const lines = textarea.value.split('\n').filter(line => line.trim() !== '');
+            
+            if (lines.length === 0) return;
+            
+            document.getElementById('table-body').innerHTML = '';
+            rowCounter = 0;
+            
+            lines.forEach(line => {
+                const extractedName = cleanAndExtractName(line);
+                if (extractedName) {
+                    addTableRow(extractedName);
+                }
+            });
+            
+            if (rowCounter === 0) return;
+            
+            textarea.value = '';
+            saveData();
+        }
+
+        function addTableRow(name) {
+            rowCounter++;
+            const tbody = document.getElementById('table-body');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${rowCounter}</td>
+                <td><input type="text" value="${name}"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="number-cell"><input type="number" min="0" value=""></td>
+                <td class="number-cell"><input type="number" min="0" value=""></td>
+                <td class="number-cell"><input type="number" min="0" value=""></td>
+                <td class="number-cell"><input type="number" min="0" value=""></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td class="check-cell" onclick="toggleCheck(this)"></td>
+                <td><input type="text"></td>
+            `;
+            
+            tbody.appendChild(row);
+        }
+
+        function toggleCheck(cell) {
+            const currentContent = cell.textContent.trim();
+            
+            if (currentContent === '') {
+                cell.textContent = '✅';
+                cell.style.backgroundColor = '#d4edda';
+            } else if (currentContent === '✅') {
+                cell.textContent = '❌';
+                cell.style.backgroundColor = '#f8d7da';
+            } else {
+                cell.textContent = '';
+                cell.style.backgroundColor = '';
+            }
+            saveData();
+        }
+
+        function printWithPagination() {
+            const tableBody = document.getElementById('table-body');
+            const rows = tableBody.querySelectorAll('tr');
+            const rowsPerPage = 28;
+
+            for (let i = rowsPerPage - 1; i < rows.length - 1; i += rowsPerPage) {
+                if (rows[i]) {
+                    rows[i].classList.add('print-page-break');
+                }
+            }
+            const printButton = document.querySelector('.btn-success');
+            printButton.textContent = 'جاري الطباعة...';
+            printButton.disabled = true;
+
+            window.print();
+        }
+
+        window.addEventListener('afterprint', () => {
+            document.querySelectorAll('.print-page-break').forEach(el => {
+                el.classList.remove('print-page-break');
+            });
+            const printButton = document.querySelector('.btn-success');
+            printButton.innerHTML = '🖨️ طباعة مباشرة';
+            printButton.disabled = false;
+        });
+
+        window.onload = function() {
+            const pledgeModal = document.getElementById('pledge-modal');
+            const agreeBtn = document.getElementById('agree-btn');
+            const mainContent = document.getElementById('record-page');
+
+            if (localStorage.getItem('pledgeAgreed') === 'true') {
+                mainContent.style.display = 'block';
+            } else {
+                pledgeModal.style.display = 'flex';
+            }
+
+            agreeBtn.onclick = function() {
+                localStorage.setItem('pledgeAgreed', 'true');
+                pledgeModal.style.display = 'none';
+                mainContent.style.display = 'block';
+            };
+
+            const dataLoaded = loadData();
+            if (!dataLoaded) {
+                const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 
+                              'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+                const currentMonth = new Date().getMonth();
+                document.getElementById('month-input').value = months[currentMonth];
+                
+                addTableRow('');
+                addTableRow('');
+                saveData();
+            }
+        };
+    </script>
+</body>
+</html>
